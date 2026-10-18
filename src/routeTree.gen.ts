@@ -24,6 +24,12 @@ import { Route as AppItemsImportRouteImport } from './routes/_app/items/import'
 import { Route as AppItemsNewRouteImport } from './routes/_app/items/new'
 import { Route as AppPartiesIndexRouteImport } from './routes/_app/parties/index'
 import { Route as AppPartiesNewRouteImport } from './routes/_app/parties/new'
+import { Route as AppPaymentsIndexRouteImport } from './routes/_app/payments/index'
+import { Route as AppPaymentsIdRouteImport } from './routes/_app/payments/$id'
+import { Route as AppPaymentsNewRouteImport } from './routes/_app/payments/new'
+import { Route as AppReturnsIndexRouteImport } from './routes/_app/returns/index'
+import { Route as AppReturnsIdRouteImport } from './routes/_app/returns/$id'
+import { Route as AppReturnsNewRouteImport } from './routes/_app/returns/new'
 import { Route as AppBillsIdIndexRouteImport } from './routes/_app/bills/$id.index'
 import { Route as AppBillsIdEditRouteImport } from './routes/_app/bills/$id.edit'
 import { Route as AppCatalogueCategoriesIndexRouteImport } from './routes/_app/catalogue/categories/index'
@@ -107,6 +113,36 @@ const AppPartiesNewRoute = AppPartiesNewRouteImport.update({
   path: '/parties/new',
   getParentRoute: () => AppRoute,
 } as any)
+const AppPaymentsIndexRoute = AppPaymentsIndexRouteImport.update({
+  id: '/payments/',
+  path: '/payments/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPaymentsIdRoute = AppPaymentsIdRouteImport.update({
+  id: '/payments/$id',
+  path: '/payments/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPaymentsNewRoute = AppPaymentsNewRouteImport.update({
+  id: '/payments/new',
+  path: '/payments/new',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReturnsIndexRoute = AppReturnsIndexRouteImport.update({
+  id: '/returns/',
+  path: '/returns/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReturnsIdRoute = AppReturnsIdRouteImport.update({
+  id: '/returns/$id',
+  path: '/returns/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReturnsNewRoute = AppReturnsNewRouteImport.update({
+  id: '/returns/new',
+  path: '/returns/new',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppBillsIdIndexRoute = AppBillsIdIndexRouteImport.update({
   id: '/bills/$id/',
   path: '/bills/$id/',
@@ -167,9 +203,15 @@ export interface FileRoutesByFullPath {
   '/items/import': typeof AppItemsImportRoute
   '/items/new': typeof AppItemsNewRoute
   '/parties/new': typeof AppPartiesNewRoute
+  '/payments/$id': typeof AppPaymentsIdRoute
+  '/payments/new': typeof AppPaymentsNewRoute
+  '/returns/$id': typeof AppReturnsIdRoute
+  '/returns/new': typeof AppReturnsNewRoute
   '/bills/': typeof AppBillsIndexRoute
   '/inventory/': typeof AppInventoryIndexRoute
   '/parties/': typeof AppPartiesIndexRoute
+  '/payments/': typeof AppPaymentsIndexRoute
+  '/returns/': typeof AppReturnsIndexRoute
   '/bills/$id/edit': typeof AppBillsIdEditRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
@@ -191,9 +233,15 @@ export interface FileRoutesByTo {
   '/items/import': typeof AppItemsImportRoute
   '/items/new': typeof AppItemsNewRoute
   '/parties/new': typeof AppPartiesNewRoute
+  '/payments/$id': typeof AppPaymentsIdRoute
+  '/payments/new': typeof AppPaymentsNewRoute
+  '/returns/$id': typeof AppReturnsIdRoute
+  '/returns/new': typeof AppReturnsNewRoute
   '/bills': typeof AppBillsIndexRoute
   '/inventory': typeof AppInventoryIndexRoute
   '/parties': typeof AppPartiesIndexRoute
+  '/payments': typeof AppPaymentsIndexRoute
+  '/returns': typeof AppReturnsIndexRoute
   '/bills/$id/edit': typeof AppBillsIdEditRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
@@ -218,9 +266,15 @@ export interface FileRoutesById {
   '/_app/items/import': typeof AppItemsImportRoute
   '/_app/items/new': typeof AppItemsNewRoute
   '/_app/parties/new': typeof AppPartiesNewRoute
+  '/_app/payments/$id': typeof AppPaymentsIdRoute
+  '/_app/payments/new': typeof AppPaymentsNewRoute
+  '/_app/returns/$id': typeof AppReturnsIdRoute
+  '/_app/returns/new': typeof AppReturnsNewRoute
   '/_app/bills/': typeof AppBillsIndexRoute
   '/_app/inventory/': typeof AppInventoryIndexRoute
   '/_app/parties/': typeof AppPartiesIndexRoute
+  '/_app/payments/': typeof AppPaymentsIndexRoute
+  '/_app/returns/': typeof AppReturnsIndexRoute
   '/_app/bills/$id/edit': typeof AppBillsIdEditRoute
   '/_app/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/_app/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
@@ -244,9 +298,15 @@ export interface FileRouteTypes {
     | '/items/import'
     | '/items/new'
     | '/parties/new'
+    | '/payments/$id'
+    | '/payments/new'
+    | '/returns/$id'
+    | '/returns/new'
     | '/bills/'
     | '/inventory/'
     | '/parties/'
+    | '/payments/'
+    | '/returns/'
     | '/bills/$id/edit'
     | '/catalogue/categories/$id'
     | '/catalogue/categories/new'
@@ -268,9 +328,15 @@ export interface FileRouteTypes {
     | '/items/import'
     | '/items/new'
     | '/parties/new'
+    | '/payments/$id'
+    | '/payments/new'
+    | '/returns/$id'
+    | '/returns/new'
     | '/bills'
     | '/inventory'
     | '/parties'
+    | '/payments'
+    | '/returns'
     | '/bills/$id/edit'
     | '/catalogue/categories/$id'
     | '/catalogue/categories/new'
@@ -294,9 +360,15 @@ export interface FileRouteTypes {
     | '/_app/items/import'
     | '/_app/items/new'
     | '/_app/parties/new'
+    | '/_app/payments/$id'
+    | '/_app/payments/new'
+    | '/_app/returns/$id'
+    | '/_app/returns/new'
     | '/_app/bills/'
     | '/_app/inventory/'
     | '/_app/parties/'
+    | '/_app/payments/'
+    | '/_app/returns/'
     | '/_app/bills/$id/edit'
     | '/_app/catalogue/categories/$id'
     | '/_app/catalogue/categories/new'
@@ -420,6 +492,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPartiesNewRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/payments/': {
+      id: '/_app/payments/'
+      path: '/payments'
+      fullPath: '/payments/'
+      preLoaderRoute: typeof AppPaymentsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/payments/$id': {
+      id: '/_app/payments/$id'
+      path: '/payments/$id'
+      fullPath: '/payments/$id'
+      preLoaderRoute: typeof AppPaymentsIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/payments/new': {
+      id: '/_app/payments/new'
+      path: '/payments/new'
+      fullPath: '/payments/new'
+      preLoaderRoute: typeof AppPaymentsNewRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/returns/': {
+      id: '/_app/returns/'
+      path: '/returns'
+      fullPath: '/returns/'
+      preLoaderRoute: typeof AppReturnsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/returns/$id': {
+      id: '/_app/returns/$id'
+      path: '/returns/$id'
+      fullPath: '/returns/$id'
+      preLoaderRoute: typeof AppReturnsIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/returns/new': {
+      id: '/_app/returns/new'
+      path: '/returns/new'
+      fullPath: '/returns/new'
+      preLoaderRoute: typeof AppReturnsNewRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/bills/$id/': {
       id: '/_app/bills/$id/'
       path: '/bills/$id'
@@ -494,9 +608,15 @@ interface AppRouteChildren {
   AppItemsImportRoute: typeof AppItemsImportRoute
   AppItemsNewRoute: typeof AppItemsNewRoute
   AppPartiesNewRoute: typeof AppPartiesNewRoute
+  AppPaymentsIdRoute: typeof AppPaymentsIdRoute
+  AppPaymentsNewRoute: typeof AppPaymentsNewRoute
+  AppReturnsIdRoute: typeof AppReturnsIdRoute
+  AppReturnsNewRoute: typeof AppReturnsNewRoute
   AppBillsIndexRoute: typeof AppBillsIndexRoute
   AppInventoryIndexRoute: typeof AppInventoryIndexRoute
   AppPartiesIndexRoute: typeof AppPartiesIndexRoute
+  AppPaymentsIndexRoute: typeof AppPaymentsIndexRoute
+  AppReturnsIndexRoute: typeof AppReturnsIndexRoute
   AppBillsIdEditRoute: typeof AppBillsIdEditRoute
   AppCatalogueCategoriesIdRoute: typeof AppCatalogueCategoriesIdRoute
   AppCatalogueCategoriesNewRoute: typeof AppCatalogueCategoriesNewRoute
@@ -516,9 +636,15 @@ const AppRouteChildren: AppRouteChildren = {
   AppItemsImportRoute: AppItemsImportRoute,
   AppItemsNewRoute: AppItemsNewRoute,
   AppPartiesNewRoute: AppPartiesNewRoute,
+  AppPaymentsIdRoute: AppPaymentsIdRoute,
+  AppPaymentsNewRoute: AppPaymentsNewRoute,
+  AppReturnsIdRoute: AppReturnsIdRoute,
+  AppReturnsNewRoute: AppReturnsNewRoute,
   AppBillsIndexRoute: AppBillsIndexRoute,
   AppInventoryIndexRoute: AppInventoryIndexRoute,
   AppPartiesIndexRoute: AppPartiesIndexRoute,
+  AppPaymentsIndexRoute: AppPaymentsIndexRoute,
+  AppReturnsIndexRoute: AppReturnsIndexRoute,
   AppBillsIdEditRoute: AppBillsIdEditRoute,
   AppCatalogueCategoriesIdRoute: AppCatalogueCategoriesIdRoute,
   AppCatalogueCategoriesNewRoute: AppCatalogueCategoriesNewRoute,

@@ -38,8 +38,8 @@ Playwright specs run against a mocked API (`e2e/support/`), with fixtures typed 
 
 ## M4 Payments and returns
 
-- [ ] T4.1 Payments register (#13), record payment (#14), payment view (#15)
-- [ ] T4.2 Returns register (#10), create return (#11), return view (#12)
+- [x] T4.1 Payments register (#13), record payment (#14), payment view (#15)
+- [x] T4.2 Returns register (#10), create return (#11), return view (#12)
 
 ## M5 Purchases and stock operations
 

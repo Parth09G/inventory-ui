@@ -40,6 +40,15 @@ export function AppShell() {
     allowInInputs: true,
     enabled: canBill,
   })
+  const canPay = useCan('payment.create')
+  useShortcut(
+    'alt+r',
+    () => void navigate({ to: '/payments/new', search: { direction: 'received' } }),
+    {
+      allowInInputs: true,
+      enabled: canPay,
+    },
+  )
 
   const toggle = () => {
     setCollapsed((c) => {

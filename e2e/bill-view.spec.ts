@@ -182,17 +182,15 @@ test.describe('bill view (#9)', () => {
 
   test('history lists earlier versions with their reason', async ({ page, mock, signIn }) => {
     await signIn()
-    mock
-      .on('get', '/bills/{id}', active)
-      .on('get', '/bills/{id}/revisions', [
-        {
-          version: 1,
-          reason: 'Rate corrected',
-          edited_by_name: 'Ramesh Kumar',
-          edited_at: '2026-10-18T06:00:00Z',
-          snapshot: billFrom(input),
-        },
-      ])
+    mock.on('get', '/bills/{id}', active).on('get', '/bills/{id}/revisions', [
+      {
+        version: 1,
+        reason: 'Rate corrected',
+        edited_by_name: 'Ramesh Kumar',
+        edited_at: '2026-10-18T06:00:00Z',
+        snapshot: billFrom(input),
+      },
+    ])
     await page.goto('/bills/1052?tab=history')
     await expect(page.getByText('Version 1')).toBeVisible()
     await expect(page.getByText('Reason: Rate corrected')).toBeVisible()

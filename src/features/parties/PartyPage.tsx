@@ -51,6 +51,7 @@ export function PartyPage() {
   const states = useQuery(statesQuery())
   const canManage = useCan('party.manage')
   const canDeactivate = useCan('party.deactivate')
+  const canPay = useCan('payment.create')
   const deactivate = useDeactivateParty()
   const statement = useStatement()
   const [statementOpen, setStatementOpen] = useState(false)
@@ -96,6 +97,16 @@ export function PartyPage() {
             <Button variant="outline" onClick={() => setStatementOpen(true)}>
               <FileDown className="size-4" /> Statement
             </Button>
+            {canPay && (
+              <Button variant="outline" asChild>
+                <Link
+                  to="/payments/new"
+                  search={{ direction: party.kind === 'supplier' ? 'paid' : 'received', party: id }}
+                >
+                  Record payment
+                </Link>
+              </Button>
+            )}
             {party.mobile && !isZero(party.balance) && (
               <Button
                 variant="outline"

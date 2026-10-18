@@ -53,10 +53,12 @@ type Props = {
   modes: PaymentMode[]
   errors?: FieldErrors<PaymentRow>[] | undefined
   disabled?: boolean
+  /** Exactly one payment (receipts): no add or remove. */
+  single?: boolean
 }
 
 /** One or more payments by mode (FR-BL-07). Cheque fields appear only for cheques. */
-export function PaymentSplitEditor({ value, onChange, modes, errors, disabled }: Props) {
+export function PaymentSplitEditor({ value, onChange, modes, errors, disabled, single }: Props) {
   const set = (i: number, patch: Partial<PaymentRow>) =>
     onChange(value.map((r, j) => (j === i ? { ...r, ...patch } : r)))
   return (
@@ -94,15 +96,17 @@ export function PaymentSplitEditor({ value, onChange, modes, errors, disabled }:
                 aria-invalid={!!e?.amount}
                 onChange={(amount) => set(i, { amount })}
               />
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                aria-label={`Remove payment ${i + 1}`}
-                onClick={() => onChange(value.filter((_, j) => j !== i))}
-              >
-                <X className="size-4" />
-              </Button>
+              {!single && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  aria-label={`Remove payment ${i + 1}`}
+                  onClick={() => onChange(value.filter((_, j) => j !== i))}
+                >
+                  <X className="size-4" />
+                </Button>
+              )}
             </div>
             {REF_LABEL[r.mode] && (
               <Input
@@ -139,23 +143,27 @@ export function PaymentSplitEditor({ value, onChange, modes, errors, disabled }:
                 />
               </div>
             )}
-            {(e?.mode?.message || e?.amount?.message) && (
-              <p className="text-sm text-danger">{e?.mode?.message ?? e?.amount?.message}</p>
+            {(e?.mode?.message || e?.amount?.message || e?.cheque_no?.message) && (
+              <p className="text-sm text-danger">
+                {e?.mode?.message ?? e?.amount?.message ?? e?.cheque_no?.message}
+              </p>
             )}
           </fieldset>
         )
       })}
-      <div>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          disabled={disabled}
-          onClick={() => onChange([...value, emptyPayment(modes[0]!)])}
-        >
-          <Plus className="size-4" /> Add payment
-        </Button>
-      </div>
+      {!single && (
+        <div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={disabled}
+            onClick={() => onChange([...value, emptyPayment(modes[0]!)])}
+          >
+            <Plus className="size-4" /> Add payment
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

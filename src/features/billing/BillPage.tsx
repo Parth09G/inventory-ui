@@ -4,10 +4,12 @@ import {
   ChevronDown,
   Copy,
   FileText,
+  IndianRupee,
   MessageCircle,
   Pencil,
   Printer,
   Truck,
+  Undo2,
   XCircle,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -189,6 +191,23 @@ export function BillPage() {
           {hasAction(b, 'share') && (
             <Button variant="outline" disabled={docs.share.isPending} onClick={() => void share()}>
               <MessageCircle className="size-4" /> Share
+            </Button>
+          )}
+          {hasAction(b, 'record_payment') && b.customer.party_id && (
+            <Button variant="outline" asChild>
+              <Link
+                to="/payments/new"
+                search={{ direction: 'received', party: b.customer.party_id, bill: b.id }}
+              >
+                <IndianRupee className="size-4" /> Record payment
+              </Link>
+            </Button>
+          )}
+          {hasAction(b, 'create_return') && (
+            <Button variant="outline" asChild>
+              <Link to="/returns/new" search={{ bill: b.id }}>
+                <Undo2 className="size-4" /> Return
+              </Link>
             </Button>
           )}
           {hasAction(b, 'copy_to_account') && (
