@@ -1,7 +1,8 @@
-import { Outlet } from '@tanstack/react-router'
+import { Outlet, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useIsPhone } from '@/hooks/useMediaQuery'
 import { useShortcut } from '@/hooks/useShortcut'
+import { useCan } from '@/lib/permissions'
 import { BottomNav } from './BottomNav'
 import { CommandPalette } from './CommandPalette'
 import { OfflineBanner } from './OfflineBanner'
@@ -29,6 +30,16 @@ export function AppShell() {
 
   useShortcut('ctrl+k', () => setPaletteOpen((o) => !o), { allowInInputs: true })
   useShortcut('?', () => setHelpOpen(true))
+  const navigate = useNavigate()
+  const canBill = useCan('bill.create')
+  useShortcut('alt+n', () => void navigate({ to: '/bills/new', search: { type: 'cash' } }), {
+    allowInInputs: true,
+    enabled: canBill,
+  })
+  useShortcut('alt+a', () => void navigate({ to: '/bills/new', search: { type: 'account' } }), {
+    allowInInputs: true,
+    enabled: canBill,
+  })
 
   const toggle = () => {
     setCollapsed((c) => {

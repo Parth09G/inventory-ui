@@ -30,11 +30,11 @@ Playwright specs run against a mocked API (`e2e/support/`), with fixtures typed 
 
 ## M3 Billing core
 
-- [ ] T3.1 Shared inputs: Money/Qty inputs, DateInput (done in M2), ItemPicker, PartyPicker, PaymentSplitEditor, ReasonDialog
-- [ ] T3.2 LineGrid engine + phone LineCards
-- [ ] T3.3 Bill editor create/edit (#7, #8), calculate, shortage, credit limit
-- [ ] T3.4 Bill view (#9): tabs, allowed actions, e-invoice, print/share, history
-- [ ] T3.5 Bill register (#6)
+- [x] T3.1 Shared inputs: Money/Qty inputs, DateInput (done in M2), ItemPicker, PartyPicker, PaymentSplitEditor, ReasonDialog
+- [x] T3.2 LineGrid engine + phone LineCards
+- [x] T3.3 Bill editor create/edit (#7, #8), calculate, shortage, credit limit
+- [x] T3.4 Bill view (#9): tabs, allowed actions, e-invoice, print/share, history
+- [x] T3.5 Bill register (#6)
 
 ## M4 Payments and returns
 

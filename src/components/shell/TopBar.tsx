@@ -1,11 +1,14 @@
-import { Search } from 'lucide-react'
+import { Link } from '@tanstack/react-router'
+import { Plus, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useCan } from '@/lib/permissions'
 import { NotificationBell } from './NotificationBell'
 import { UserMenu } from './UserMenu'
 
 type Props = { phone: boolean; onSearch: () => void; onShowShortcuts: () => void }
 
 export function TopBar({ phone, onSearch, onShowShortcuts }: Props) {
+  const canBill = useCan('bill.create')
   return (
     <header className="sticky top-0 z-30 flex h-12 items-center gap-2 border-b bg-surface px-2 sm:px-4">
       {phone && <span className="px-2 text-sm font-semibold tracking-wide uppercase">Billing</span>}
@@ -33,6 +36,13 @@ export function TopBar({ phone, onSearch, onShowShortcuts }: Props) {
         </button>
       )}
       <div className={phone ? 'flex items-center' : 'ml-auto flex items-center gap-1'}>
+        {canBill && !phone && (
+          <Button asChild size="sm" className="mr-2">
+            <Link to="/bills/new" search={{ type: 'cash' }} title="New Cash bill (Alt+N)">
+              <Plus className="size-4" /> New bill
+            </Link>
+          </Button>
+        )}
         <NotificationBell />
         <UserMenu onShowShortcuts={onShowShortcuts} />
       </div>

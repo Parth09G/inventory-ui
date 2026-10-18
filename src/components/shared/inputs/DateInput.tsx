@@ -1,5 +1,5 @@
 import { CalendarDays } from 'lucide-react'
-import { forwardRef, useEffect, useRef, useState, type ComponentProps } from 'react'
+import { forwardRef, useRef, useState, type ComponentProps } from 'react'
 import { formatDateInput, parseDateInput } from '@/lib/dates'
 import { cn } from '@/lib/utils'
 
@@ -21,10 +21,13 @@ export const DateInput = forwardRef<HTMLInputElement, Props>(function DateInput(
   const [text, setText] = useState(formatDateInput(value))
   const [invalid, setInvalid] = useState(false)
   const picker = useRef<HTMLInputElement>(null)
-  useEffect(() => {
+  // Follow outside changes to the value (React's "adjust state on prop change" pattern).
+  const [shown, setShown] = useState(value)
+  if (shown !== value) {
+    setShown(value)
     setText(formatDateInput(value))
     setInvalid(false)
-  }, [value])
+  }
 
   const commit = () => {
     if (!text.trim()) {

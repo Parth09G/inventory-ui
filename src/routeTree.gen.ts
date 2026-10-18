@@ -16,12 +16,16 @@ import { Route as AppNoAccessRouteImport } from './routes/_app/no-access'
 import { Route as PublicForgotPasswordRouteImport } from './routes/_public/forgot-password'
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as PublicSetPasswordRouteImport } from './routes/_public/set-password'
+import { Route as AppBillsIndexRouteImport } from './routes/_app/bills/index'
+import { Route as AppBillsNewRouteImport } from './routes/_app/bills/new'
 import { Route as AppCatalogueUnitsRouteImport } from './routes/_app/catalogue/units'
 import { Route as AppInventoryIndexRouteImport } from './routes/_app/inventory/index'
 import { Route as AppItemsImportRouteImport } from './routes/_app/items/import'
 import { Route as AppItemsNewRouteImport } from './routes/_app/items/new'
 import { Route as AppPartiesIndexRouteImport } from './routes/_app/parties/index'
 import { Route as AppPartiesNewRouteImport } from './routes/_app/parties/new'
+import { Route as AppBillsIdIndexRouteImport } from './routes/_app/bills/$id.index'
+import { Route as AppBillsIdEditRouteImport } from './routes/_app/bills/$id.edit'
 import { Route as AppCatalogueCategoriesIndexRouteImport } from './routes/_app/catalogue/categories/index'
 import { Route as AppCatalogueCategoriesIdRouteImport } from './routes/_app/catalogue/categories/$id'
 import { Route as AppCatalogueCategoriesNewRouteImport } from './routes/_app/catalogue/categories/new'
@@ -63,6 +67,16 @@ const PublicSetPasswordRoute = PublicSetPasswordRouteImport.update({
   path: '/set-password',
   getParentRoute: () => PublicRoute,
 } as any)
+const AppBillsIndexRoute = AppBillsIndexRouteImport.update({
+  id: '/bills/',
+  path: '/bills/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBillsNewRoute = AppBillsNewRouteImport.update({
+  id: '/bills/new',
+  path: '/bills/new',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCatalogueUnitsRoute = AppCatalogueUnitsRouteImport.update({
   id: '/catalogue/units',
   path: '/catalogue/units',
@@ -91,6 +105,16 @@ const AppPartiesIndexRoute = AppPartiesIndexRouteImport.update({
 const AppPartiesNewRoute = AppPartiesNewRouteImport.update({
   id: '/parties/new',
   path: '/parties/new',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBillsIdIndexRoute = AppBillsIdIndexRouteImport.update({
+  id: '/bills/$id/',
+  path: '/bills/$id/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBillsIdEditRoute = AppBillsIdEditRouteImport.update({
+  id: '/bills/$id/edit',
+  path: '/bills/$id/edit',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCatalogueCategoriesIndexRoute =
@@ -138,16 +162,20 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
+  '/bills/new': typeof AppBillsNewRoute
   '/catalogue/units': typeof AppCatalogueUnitsRoute
   '/items/import': typeof AppItemsImportRoute
   '/items/new': typeof AppItemsNewRoute
   '/parties/new': typeof AppPartiesNewRoute
+  '/bills/': typeof AppBillsIndexRoute
   '/inventory/': typeof AppInventoryIndexRoute
   '/parties/': typeof AppPartiesIndexRoute
+  '/bills/$id/edit': typeof AppBillsIdEditRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
   '/items/$id/edit': typeof AppItemsIdEditRoute
   '/parties/$id/edit': typeof AppPartiesIdEditRoute
+  '/bills/$id/': typeof AppBillsIdIndexRoute
   '/catalogue/categories/': typeof AppCatalogueCategoriesIndexRoute
   '/items/$id/': typeof AppItemsIdIndexRoute
   '/parties/$id/': typeof AppPartiesIdIndexRoute
@@ -158,16 +186,20 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
+  '/bills/new': typeof AppBillsNewRoute
   '/catalogue/units': typeof AppCatalogueUnitsRoute
   '/items/import': typeof AppItemsImportRoute
   '/items/new': typeof AppItemsNewRoute
   '/parties/new': typeof AppPartiesNewRoute
+  '/bills': typeof AppBillsIndexRoute
   '/inventory': typeof AppInventoryIndexRoute
   '/parties': typeof AppPartiesIndexRoute
+  '/bills/$id/edit': typeof AppBillsIdEditRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
   '/items/$id/edit': typeof AppItemsIdEditRoute
   '/parties/$id/edit': typeof AppPartiesIdEditRoute
+  '/bills/$id': typeof AppBillsIdIndexRoute
   '/catalogue/categories': typeof AppCatalogueCategoriesIndexRoute
   '/items/$id': typeof AppItemsIdIndexRoute
   '/parties/$id': typeof AppPartiesIdIndexRoute
@@ -181,16 +213,20 @@ export interface FileRoutesById {
   '/_public/login': typeof PublicLoginRoute
   '/_public/set-password': typeof PublicSetPasswordRoute
   '/_app/': typeof AppIndexRoute
+  '/_app/bills/new': typeof AppBillsNewRoute
   '/_app/catalogue/units': typeof AppCatalogueUnitsRoute
   '/_app/items/import': typeof AppItemsImportRoute
   '/_app/items/new': typeof AppItemsNewRoute
   '/_app/parties/new': typeof AppPartiesNewRoute
+  '/_app/bills/': typeof AppBillsIndexRoute
   '/_app/inventory/': typeof AppInventoryIndexRoute
   '/_app/parties/': typeof AppPartiesIndexRoute
+  '/_app/bills/$id/edit': typeof AppBillsIdEditRoute
   '/_app/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/_app/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
   '/_app/items/$id/edit': typeof AppItemsIdEditRoute
   '/_app/parties/$id/edit': typeof AppPartiesIdEditRoute
+  '/_app/bills/$id/': typeof AppBillsIdIndexRoute
   '/_app/catalogue/categories/': typeof AppCatalogueCategoriesIndexRoute
   '/_app/items/$id/': typeof AppItemsIdIndexRoute
   '/_app/parties/$id/': typeof AppPartiesIdIndexRoute
@@ -203,16 +239,20 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/set-password'
+    | '/bills/new'
     | '/catalogue/units'
     | '/items/import'
     | '/items/new'
     | '/parties/new'
+    | '/bills/'
     | '/inventory/'
     | '/parties/'
+    | '/bills/$id/edit'
     | '/catalogue/categories/$id'
     | '/catalogue/categories/new'
     | '/items/$id/edit'
     | '/parties/$id/edit'
+    | '/bills/$id/'
     | '/catalogue/categories/'
     | '/items/$id/'
     | '/parties/$id/'
@@ -223,16 +263,20 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/set-password'
+    | '/bills/new'
     | '/catalogue/units'
     | '/items/import'
     | '/items/new'
     | '/parties/new'
+    | '/bills'
     | '/inventory'
     | '/parties'
+    | '/bills/$id/edit'
     | '/catalogue/categories/$id'
     | '/catalogue/categories/new'
     | '/items/$id/edit'
     | '/parties/$id/edit'
+    | '/bills/$id'
     | '/catalogue/categories'
     | '/items/$id'
     | '/parties/$id'
@@ -245,16 +289,20 @@ export interface FileRouteTypes {
     | '/_public/login'
     | '/_public/set-password'
     | '/_app/'
+    | '/_app/bills/new'
     | '/_app/catalogue/units'
     | '/_app/items/import'
     | '/_app/items/new'
     | '/_app/parties/new'
+    | '/_app/bills/'
     | '/_app/inventory/'
     | '/_app/parties/'
+    | '/_app/bills/$id/edit'
     | '/_app/catalogue/categories/$id'
     | '/_app/catalogue/categories/new'
     | '/_app/items/$id/edit'
     | '/_app/parties/$id/edit'
+    | '/_app/bills/$id/'
     | '/_app/catalogue/categories/'
     | '/_app/items/$id/'
     | '/_app/parties/$id/'
@@ -316,6 +364,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicSetPasswordRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_app/bills/': {
+      id: '/_app/bills/'
+      path: '/bills'
+      fullPath: '/bills/'
+      preLoaderRoute: typeof AppBillsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/bills/new': {
+      id: '/_app/bills/new'
+      path: '/bills/new'
+      fullPath: '/bills/new'
+      preLoaderRoute: typeof AppBillsNewRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/catalogue/units': {
       id: '/_app/catalogue/units'
       path: '/catalogue/units'
@@ -356,6 +418,20 @@ declare module '@tanstack/react-router' {
       path: '/parties/new'
       fullPath: '/parties/new'
       preLoaderRoute: typeof AppPartiesNewRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/bills/$id/': {
+      id: '/_app/bills/$id/'
+      path: '/bills/$id'
+      fullPath: '/bills/$id/'
+      preLoaderRoute: typeof AppBillsIdIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/bills/$id/edit': {
+      id: '/_app/bills/$id/edit'
+      path: '/bills/$id/edit'
+      fullPath: '/bills/$id/edit'
+      preLoaderRoute: typeof AppBillsIdEditRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/catalogue/categories/': {
@@ -413,16 +489,20 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppNoAccessRoute: typeof AppNoAccessRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppBillsNewRoute: typeof AppBillsNewRoute
   AppCatalogueUnitsRoute: typeof AppCatalogueUnitsRoute
   AppItemsImportRoute: typeof AppItemsImportRoute
   AppItemsNewRoute: typeof AppItemsNewRoute
   AppPartiesNewRoute: typeof AppPartiesNewRoute
+  AppBillsIndexRoute: typeof AppBillsIndexRoute
   AppInventoryIndexRoute: typeof AppInventoryIndexRoute
   AppPartiesIndexRoute: typeof AppPartiesIndexRoute
+  AppBillsIdEditRoute: typeof AppBillsIdEditRoute
   AppCatalogueCategoriesIdRoute: typeof AppCatalogueCategoriesIdRoute
   AppCatalogueCategoriesNewRoute: typeof AppCatalogueCategoriesNewRoute
   AppItemsIdEditRoute: typeof AppItemsIdEditRoute
   AppPartiesIdEditRoute: typeof AppPartiesIdEditRoute
+  AppBillsIdIndexRoute: typeof AppBillsIdIndexRoute
   AppCatalogueCategoriesIndexRoute: typeof AppCatalogueCategoriesIndexRoute
   AppItemsIdIndexRoute: typeof AppItemsIdIndexRoute
   AppPartiesIdIndexRoute: typeof AppPartiesIdIndexRoute
@@ -431,16 +511,20 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppNoAccessRoute: AppNoAccessRoute,
   AppIndexRoute: AppIndexRoute,
+  AppBillsNewRoute: AppBillsNewRoute,
   AppCatalogueUnitsRoute: AppCatalogueUnitsRoute,
   AppItemsImportRoute: AppItemsImportRoute,
   AppItemsNewRoute: AppItemsNewRoute,
   AppPartiesNewRoute: AppPartiesNewRoute,
+  AppBillsIndexRoute: AppBillsIndexRoute,
   AppInventoryIndexRoute: AppInventoryIndexRoute,
   AppPartiesIndexRoute: AppPartiesIndexRoute,
+  AppBillsIdEditRoute: AppBillsIdEditRoute,
   AppCatalogueCategoriesIdRoute: AppCatalogueCategoriesIdRoute,
   AppCatalogueCategoriesNewRoute: AppCatalogueCategoriesNewRoute,
   AppItemsIdEditRoute: AppItemsIdEditRoute,
   AppPartiesIdEditRoute: AppPartiesIdEditRoute,
+  AppBillsIdIndexRoute: AppBillsIdIndexRoute,
   AppCatalogueCategoriesIndexRoute: AppCatalogueCategoriesIndexRoute,
   AppItemsIdIndexRoute: AppItemsIdIndexRoute,
   AppPartiesIdIndexRoute: AppPartiesIdIndexRoute,

@@ -1,5 +1,13 @@
 import type { LinkProps } from '@tanstack/react-router'
-import { Boxes, FolderTree, LayoutDashboard, Ruler, Users, type LucideIcon } from 'lucide-react'
+import {
+  Boxes,
+  FolderTree,
+  LayoutDashboard,
+  ReceiptText,
+  Ruler,
+  Users,
+  type LucideIcon,
+} from 'lucide-react'
 
 export type NavItem = {
   to: LinkProps['to']
@@ -15,6 +23,7 @@ export type NavGroup = { label: string | null; items: NavItem[] }
 // Items are added as each feature's routes land (tasks.md).
 export const NAV: NavGroup[] = [
   { label: null, items: [{ to: '/', label: 'Dashboard', icon: LayoutDashboard, phone: true }] },
+  { label: 'Sell', items: [{ to: '/bills', label: 'Bills', icon: ReceiptText, phone: true }] },
   {
     label: 'Stock',
     items: [

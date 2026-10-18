@@ -297,3 +297,13 @@ export const ledger: S['Ledger'] = {
     },
   ],
 }
+
+export const settings: S['Settings'] = {
+  shop_name: 'Sri Lakshmi Building Materials',
+  address: '1 Market Road, Bengaluru 560001',
+  state_code: '29',
+  gstin: '29AAACS1234A1Z9',
+  prices_include_gst: false,
+  default_charge_gst: '18',
+  einvoice_enabled: true,
+}
