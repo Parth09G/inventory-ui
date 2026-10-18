@@ -237,3 +237,63 @@ export const items: S['Item'][] = [
 export function page<T>(rows: T[], p = 1, total = rows.length, page_size = 50) {
   return { data: rows, meta: { page: p, page_size, total } }
 }
+
+export const parties: S['Party'][] = [
+  {
+    id: 7,
+    kind: 'customer',
+    name: 'Ravi Builders',
+    mobile: '9845012345',
+    gstin: '29ABCDE1234F1Z5',
+    state_code: '29',
+    billing_address: '14 MG Road, Bengaluru',
+    pincode: '560001',
+    credit_limit: '200000.00',
+    opening_balance: '0.00',
+    balance: '98450.00',
+    sites: [{ id: 1, label: 'Yelahanka plot', address: 'Plot 21, Yelahanka' }],
+    is_active: true,
+  },
+  {
+    id: 8,
+    kind: 'supplier',
+    name: 'Jindal Steel Traders',
+    mobile: '9900011122',
+    gstin: '33AAACJ1234K1Z2',
+    state_code: '33',
+    opening_balance: '-25000.00',
+    balance: '-140500.00',
+    sites: [],
+    is_active: true,
+  },
+  { id: 9, kind: 'customer', name: 'Walk-in Mahesh', balance: '0.00', sites: [], is_active: true },
+]
+
+export const ledger: S['Ledger'] = {
+  opening: '0.00',
+  closing: '98450.00',
+  entries: [
+    {
+      id: 1,
+      date: '2026-10-10',
+      ref_type: 'bill',
+      ref_id: 1052,
+      ref_no: 'C/26-27/0418',
+      narration: 'Cash bill',
+      debit: '148450.00',
+      credit: '0.00',
+      balance: '148450.00',
+    },
+    {
+      id: 2,
+      date: '2026-10-10',
+      ref_type: 'payment',
+      ref_id: 301,
+      ref_no: 'R/26-27/0102',
+      narration: 'UPI UPI/628401',
+      debit: '0.00',
+      credit: '50000.00',
+      balance: '98450.00',
+    },
+  ],
+}

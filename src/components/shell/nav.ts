@@ -1,5 +1,5 @@
 import type { LinkProps } from '@tanstack/react-router'
-import { Boxes, FolderTree, LayoutDashboard, Ruler, type LucideIcon } from 'lucide-react'
+import { Boxes, FolderTree, LayoutDashboard, Ruler, Users, type LucideIcon } from 'lucide-react'
 
 export type NavItem = {
   to: LinkProps['to']
@@ -23,4 +23,5 @@ export const NAV: NavGroup[] = [
       { to: '/catalogue/units', label: 'Units', icon: Ruler },
     ],
   },
+  { label: 'Parties', items: [{ to: '/parties', label: 'Parties', icon: Users }] },
 ]

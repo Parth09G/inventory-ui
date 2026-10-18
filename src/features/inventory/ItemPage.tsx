@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { DataTable, type Column } from '@/components/shared/DataTable'
+import { DateRange } from '@/components/shared/inputs/DateRange'
 import { FilterBar, FilterSelect } from '@/components/shared/FilterBar'
 import { KeyValueGrid } from '@/components/shared/KeyValueGrid'
 import { PageHeader } from '@/components/shared/PageHeader'
@@ -11,7 +12,6 @@ import { Pagination } from '@/components/shared/Pagination'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { Code, DateText, Money, Qty, Rate } from '@/components/shared/values'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { problemMessage } from '@/lib/api/problem'
 import { locationsQuery } from '@/lib/api/reference'
@@ -292,24 +292,7 @@ function Ledger({
           onChange={(v) => set({ loc: v ? Number(v) : undefined })}
           options={locations.map((l) => ({ value: String(l.id), label: l.name }))}
         />
-        <label className="grid gap-0.5 text-xs font-medium text-ink-muted">
-          From
-          <Input
-            type="date"
-            value={search.from ?? ''}
-            onChange={(e) => set({ from: e.target.value || undefined })}
-            className="w-40"
-          />
-        </label>
-        <label className="grid gap-0.5 text-xs font-medium text-ink-muted">
-          To
-          <Input
-            type="date"
-            value={search.to ?? ''}
-            onChange={(e) => set({ to: e.target.value || undefined })}
-            className="w-40"
-          />
-        </label>
+        <DateRange from={search.from} to={search.to} onChange={(r) => set(r)} />
       </FilterBar>
       <DataTable
         label="Stock ledger"

@@ -20,11 +20,15 @@ import { Route as AppCatalogueUnitsRouteImport } from './routes/_app/catalogue/u
 import { Route as AppInventoryIndexRouteImport } from './routes/_app/inventory/index'
 import { Route as AppItemsImportRouteImport } from './routes/_app/items/import'
 import { Route as AppItemsNewRouteImport } from './routes/_app/items/new'
+import { Route as AppPartiesIndexRouteImport } from './routes/_app/parties/index'
+import { Route as AppPartiesNewRouteImport } from './routes/_app/parties/new'
 import { Route as AppCatalogueCategoriesIndexRouteImport } from './routes/_app/catalogue/categories/index'
 import { Route as AppCatalogueCategoriesIdRouteImport } from './routes/_app/catalogue/categories/$id'
 import { Route as AppCatalogueCategoriesNewRouteImport } from './routes/_app/catalogue/categories/new'
 import { Route as AppItemsIdIndexRouteImport } from './routes/_app/items/$id.index'
 import { Route as AppItemsIdEditRouteImport } from './routes/_app/items/$id.edit'
+import { Route as AppPartiesIdIndexRouteImport } from './routes/_app/parties/$id.index'
+import { Route as AppPartiesIdEditRouteImport } from './routes/_app/parties/$id.edit'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -79,6 +83,16 @@ const AppItemsNewRoute = AppItemsNewRouteImport.update({
   path: '/items/new',
   getParentRoute: () => AppRoute,
 } as any)
+const AppPartiesIndexRoute = AppPartiesIndexRouteImport.update({
+  id: '/parties/',
+  path: '/parties/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPartiesNewRoute = AppPartiesNewRouteImport.update({
+  id: '/parties/new',
+  path: '/parties/new',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCatalogueCategoriesIndexRoute =
   AppCatalogueCategoriesIndexRouteImport.update({
     id: '/catalogue/categories/',
@@ -107,6 +121,16 @@ const AppItemsIdEditRoute = AppItemsIdEditRouteImport.update({
   path: '/items/$id/edit',
   getParentRoute: () => AppRoute,
 } as any)
+const AppPartiesIdIndexRoute = AppPartiesIdIndexRouteImport.update({
+  id: '/parties/$id/',
+  path: '/parties/$id/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPartiesIdEditRoute = AppPartiesIdEditRouteImport.update({
+  id: '/parties/$id/edit',
+  path: '/parties/$id/edit',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
@@ -117,12 +141,16 @@ export interface FileRoutesByFullPath {
   '/catalogue/units': typeof AppCatalogueUnitsRoute
   '/items/import': typeof AppItemsImportRoute
   '/items/new': typeof AppItemsNewRoute
+  '/parties/new': typeof AppPartiesNewRoute
   '/inventory/': typeof AppInventoryIndexRoute
+  '/parties/': typeof AppPartiesIndexRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
   '/items/$id/edit': typeof AppItemsIdEditRoute
+  '/parties/$id/edit': typeof AppPartiesIdEditRoute
   '/catalogue/categories/': typeof AppCatalogueCategoriesIndexRoute
   '/items/$id/': typeof AppItemsIdIndexRoute
+  '/parties/$id/': typeof AppPartiesIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
@@ -133,12 +161,16 @@ export interface FileRoutesByTo {
   '/catalogue/units': typeof AppCatalogueUnitsRoute
   '/items/import': typeof AppItemsImportRoute
   '/items/new': typeof AppItemsNewRoute
+  '/parties/new': typeof AppPartiesNewRoute
   '/inventory': typeof AppInventoryIndexRoute
+  '/parties': typeof AppPartiesIndexRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
   '/items/$id/edit': typeof AppItemsIdEditRoute
+  '/parties/$id/edit': typeof AppPartiesIdEditRoute
   '/catalogue/categories': typeof AppCatalogueCategoriesIndexRoute
   '/items/$id': typeof AppItemsIdIndexRoute
+  '/parties/$id': typeof AppPartiesIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -152,12 +184,16 @@ export interface FileRoutesById {
   '/_app/catalogue/units': typeof AppCatalogueUnitsRoute
   '/_app/items/import': typeof AppItemsImportRoute
   '/_app/items/new': typeof AppItemsNewRoute
+  '/_app/parties/new': typeof AppPartiesNewRoute
   '/_app/inventory/': typeof AppInventoryIndexRoute
+  '/_app/parties/': typeof AppPartiesIndexRoute
   '/_app/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/_app/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
   '/_app/items/$id/edit': typeof AppItemsIdEditRoute
+  '/_app/parties/$id/edit': typeof AppPartiesIdEditRoute
   '/_app/catalogue/categories/': typeof AppCatalogueCategoriesIndexRoute
   '/_app/items/$id/': typeof AppItemsIdIndexRoute
+  '/_app/parties/$id/': typeof AppPartiesIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -170,12 +206,16 @@ export interface FileRouteTypes {
     | '/catalogue/units'
     | '/items/import'
     | '/items/new'
+    | '/parties/new'
     | '/inventory/'
+    | '/parties/'
     | '/catalogue/categories/$id'
     | '/catalogue/categories/new'
     | '/items/$id/edit'
+    | '/parties/$id/edit'
     | '/catalogue/categories/'
     | '/items/$id/'
+    | '/parties/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -186,12 +226,16 @@ export interface FileRouteTypes {
     | '/catalogue/units'
     | '/items/import'
     | '/items/new'
+    | '/parties/new'
     | '/inventory'
+    | '/parties'
     | '/catalogue/categories/$id'
     | '/catalogue/categories/new'
     | '/items/$id/edit'
+    | '/parties/$id/edit'
     | '/catalogue/categories'
     | '/items/$id'
+    | '/parties/$id'
   id:
     | '__root__'
     | '/_app'
@@ -204,12 +248,16 @@ export interface FileRouteTypes {
     | '/_app/catalogue/units'
     | '/_app/items/import'
     | '/_app/items/new'
+    | '/_app/parties/new'
     | '/_app/inventory/'
+    | '/_app/parties/'
     | '/_app/catalogue/categories/$id'
     | '/_app/catalogue/categories/new'
     | '/_app/items/$id/edit'
+    | '/_app/parties/$id/edit'
     | '/_app/catalogue/categories/'
     | '/_app/items/$id/'
+    | '/_app/parties/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -296,6 +344,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppItemsNewRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/parties/': {
+      id: '/_app/parties/'
+      path: '/parties'
+      fullPath: '/parties/'
+      preLoaderRoute: typeof AppPartiesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/parties/new': {
+      id: '/_app/parties/new'
+      path: '/parties/new'
+      fullPath: '/parties/new'
+      preLoaderRoute: typeof AppPartiesNewRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/catalogue/categories/': {
       id: '/_app/catalogue/categories/'
       path: '/catalogue/categories'
@@ -331,6 +393,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppItemsIdEditRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/parties/$id/': {
+      id: '/_app/parties/$id/'
+      path: '/parties/$id'
+      fullPath: '/parties/$id/'
+      preLoaderRoute: typeof AppPartiesIdIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/parties/$id/edit': {
+      id: '/_app/parties/$id/edit'
+      path: '/parties/$id/edit'
+      fullPath: '/parties/$id/edit'
+      preLoaderRoute: typeof AppPartiesIdEditRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -340,12 +416,16 @@ interface AppRouteChildren {
   AppCatalogueUnitsRoute: typeof AppCatalogueUnitsRoute
   AppItemsImportRoute: typeof AppItemsImportRoute
   AppItemsNewRoute: typeof AppItemsNewRoute
+  AppPartiesNewRoute: typeof AppPartiesNewRoute
   AppInventoryIndexRoute: typeof AppInventoryIndexRoute
+  AppPartiesIndexRoute: typeof AppPartiesIndexRoute
   AppCatalogueCategoriesIdRoute: typeof AppCatalogueCategoriesIdRoute
   AppCatalogueCategoriesNewRoute: typeof AppCatalogueCategoriesNewRoute
   AppItemsIdEditRoute: typeof AppItemsIdEditRoute
+  AppPartiesIdEditRoute: typeof AppPartiesIdEditRoute
   AppCatalogueCategoriesIndexRoute: typeof AppCatalogueCategoriesIndexRoute
   AppItemsIdIndexRoute: typeof AppItemsIdIndexRoute
+  AppPartiesIdIndexRoute: typeof AppPartiesIdIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -354,12 +434,16 @@ const AppRouteChildren: AppRouteChildren = {
   AppCatalogueUnitsRoute: AppCatalogueUnitsRoute,
   AppItemsImportRoute: AppItemsImportRoute,
   AppItemsNewRoute: AppItemsNewRoute,
+  AppPartiesNewRoute: AppPartiesNewRoute,
   AppInventoryIndexRoute: AppInventoryIndexRoute,
+  AppPartiesIndexRoute: AppPartiesIndexRoute,
   AppCatalogueCategoriesIdRoute: AppCatalogueCategoriesIdRoute,
   AppCatalogueCategoriesNewRoute: AppCatalogueCategoriesNewRoute,
   AppItemsIdEditRoute: AppItemsIdEditRoute,
+  AppPartiesIdEditRoute: AppPartiesIdEditRoute,
   AppCatalogueCategoriesIndexRoute: AppCatalogueCategoriesIndexRoute,
   AppItemsIdIndexRoute: AppItemsIdIndexRoute,
+  AppPartiesIdIndexRoute: AppPartiesIdIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

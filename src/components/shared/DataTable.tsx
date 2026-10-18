@@ -248,7 +248,7 @@ export function DataTable<T>(props: Props<T>) {
                   <td
                     key={c.id}
                     className={cn(
-                      'sticky bottom-0 h-9 border-t-2 border-rule-strong bg-surface-sunken px-3 font-medium',
+                      'sticky bottom-0 h-9 border-t-2 border-rule-strong bg-surface-sunken px-3 font-medium whitespace-nowrap',
                       c.align === 'right' && 'text-right',
                     )}
                   >
