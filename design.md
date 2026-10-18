@@ -191,36 +191,43 @@ AI-generated interfaces look alike because they all use the same defaults. Treat
 
 ## 5. Visual language
 
-These are the starting values. The first UI task turns them into tokens in `src/styles/index.css` and adjusts them after a contrast check.
+These are the final token values (ui-plan.md §2). The first UI task writes them as tokens in `src/styles/index.css` and adjusts them after a contrast check.
 
 ### 5.1 Typography
 
-| Role                              | Font                                  | Desktop       | Phone                                   |
-| --------------------------------- | ------------------------------------- | ------------- | --------------------------------------- |
-| UI text                           | IBM Plex Sans (variable, self-hosted) | 14 px / 20 px | 15 px / 22 px                           |
-| Inputs                            | IBM Plex Sans                         | 14 px         | 16 px (stops iOS from zooming on focus) |
-| Table cells                       | IBM Plex Sans, tabular figures        | 13–14 px      | 14 px                                   |
-| Codes (bill no., GSTIN, IRN, HSN) | IBM Plex Mono                         | 13 px         | 13 px                                   |
-| Page title                        | IBM Plex Sans, weight 600             | 20 px         | 18 px                                   |
-| Big figures (bill total)          | IBM Plex Sans, weight 600, tabular    | 24 px         | 22 px                                   |
+Fonts: IBM Plex Sans Variable for the UI and IBM Plex Mono for codes (bill no., GSTIN, IRN, HSN, UTR), self-hosted (D-15). Numbers always use `tabular-nums`. Inputs are 16 px on phone so iOS does not zoom on focus.
+
+| Token         | Size / line height / weight                 |
+| ------------- | ------------------------------------------- |
+| `text-xs`     | 12/16 (meta, badges)                        |
+| `text-sm`     | 13/18 (table cells, dense)                  |
+| `text-base`   | 14/20 desktop, 15/22 phone                  |
+| `text-lg`     | 16/24 (section titles)                      |
+| `text-xl`     | 20/28 weight 600 (page titles; 18 on phone) |
+| `text-figure` | 24/32 weight 600, tabular (grand totals)    |
 
 Use at most four sizes on a screen. Use weights 400, 500 and 600 only.
 
 ### 5.2 Colour (light theme)
 
-| Token                                     | Use                            | Starting value                              |
-| ----------------------------------------- | ------------------------------ | ------------------------------------------- |
-| `paper`                                   | App background                 | #F7F7F4 (warm off-white)                    |
-| `surface`                                 | Tables, forms, sheets          | #FFFFFF                                     |
-| `ink`                                     | Primary text, primary button   | #1C1F23                                     |
-| `ink-muted`                               | Secondary text, column headers | #5B6169                                     |
-| `rule`                                    | Hairlines, input borders       | #DEDDD6                                     |
-| `steel`                                   | Focus ring, selection, links   | #2F5D8A (the blue of TMT steel; not indigo) |
-| `account`                                 | Account-bill band and label    | #0F6E6E (teal)                              |
-| `cash`                                    | Cash-bill band and label       | `ink`                                       |
-| `success` / `warning` / `danger` / `info` | Status only                    | #2E7D4F / #B26B00 / #B42318 / #2F5D8A       |
+| Token                                             | Light                                       | Use                                           |
+| ------------------------------------------------- | ------------------------------------------- | --------------------------------------------- |
+| `--paper`                                         | #F7F7F4                                     | App background                                |
+| `--surface`                                       | #FFFFFF                                     | Tables, forms, sheets                         |
+| `--surface-sunken`                                | #EFEFEA                                     | Table header, read-only fields                |
+| `--ink`                                           | #1C1F23                                     | Text, primary button                          |
+| `--ink-muted`                                     | #5B6169                                     | Secondary text, column headers                |
+| `--ink-faint`                                     | #8A9098                                     | Placeholders, disabled                        |
+| `--rule`                                          | #DEDDD6                                     | Hairlines, borders                            |
+| `--rule-strong`                                   | #C4C3BB                                     | Input borders                                 |
+| `--steel`                                         | #2F5D8A (the blue of TMT steel; not indigo) | Focus ring, links, selection                  |
+| `--steel-tint`                                    | `--steel` at 10%                            | Selected row                                  |
+| `--cash`                                          | #1C1F23                                     | Cash-bill band and label                      |
+| `--account`                                       | #0F6E6E (teal)                              | Account-bill band and label                   |
+| `--success` / `--warning` / `--danger` / `--info` | #2E7D4F / #B26B00 / #B42318 / #2F5D8A       | Status only (each with a 10% `-tint`)         |
+| `--chart-1…5`                                     | #2F5D8A, #0F6E6E, #B26B00, #6B5B95, #5B6169 | Charts (validate when the dashboard is built) |
 
-The primary button is `ink`, not a brand hue. Each status colour has a tinted background (about 10% opacity) for badges and row highlights.
+The primary button is `ink`, not a brand hue. Run a contrast check on these values when the tokens are written into `src/styles/index.css`.
 
 ### 5.3 Space, shape and depth
 

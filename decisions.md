@@ -37,6 +37,10 @@ Requirement IDs refer to `backend-api/Billing_Inventory_Requirements_HLD_v2.1.do
 | D-25 | English only; no i18n library in v1                                      | Accepted                        |
 | D-26 | Hosting: Vercel in development; production host open                     | Proposed (O-08)                 |
 | D-27 | Separate phone layout for document entry                                 | Accepted                        |
+| D-28 | Own `useShortcut` hook for keyboard shortcuts                            | Accepted                        |
+| D-29 | One generic report viewer driven by column metadata                      | Accepted                        |
+| D-30 | One LineGrid engine for all line-based documents                         | Accepted                        |
+| D-31 | Phone shell and entry layouts below 1024 px                              | Accepted                        |
 
 ---
 
@@ -268,3 +272,24 @@ e2e/              Playwright specs (desktop + 360 px phone projects)
   - Bill, purchase, transfer and count entry each have a phone layout: line cards, a bottom-sheet editor, and a pinned total and save bar.
   - Both layouts share the same form state and API calls. Only the presentation differs.
   - Registers on phone show a card list with the 3–4 key fields instead of a wide table.
+
+### D-28 Own `useShortcut` hook for keyboard shortcuts
+
+- **Decision:** A small scoped hook (`src/hooks/useShortcut.ts`, about 60 lines) handles a global scope plus one document scope (bill editor, purchase entry …). It ignores browser-reserved keys (Ctrl+N, Ctrl+T, Ctrl+W) and does not fire inside text inputs unless the shortcut is marked as allowed there (Ctrl+Enter, Ctrl+S, Alt+L, Alt+D).
+- **Rejected:** `react-hotkeys-hook` and similar libraries. Our map is small and fixed (design §7), and we want full control over scope and input behaviour.
+
+### D-29 One generic report viewer driven by column metadata
+
+- **Context:** The API has 21 report keys under `GET /reports/{key}`. Each JSON response includes column metadata with a type (`text`, `money`, `qty`, `date`, `percent`).
+- **Decision:** One page, `/reports/$key`, renders every report. It maps column types to the shared cell components (Money, Qty, DateText …), and takes filters from the URL. Excel and PDF exports use `format=xlsx|pdf`. There are no per-report screens.
+- **Consequence:** A new report on the server appears in the UI by adding one entry to the report catalogue.
+
+### D-30 One LineGrid engine for all line-based documents
+
+- **Decision:** Bills, purchases, purchase returns, transfers, adjustments, sales returns and stock counts all use one keyboard grid (`components/shared/line-grid/`), configured by a column list and built on RHF `useFieldArray`. Its phone twin (LineCards + LineSheet) shares the same form state (D-27).
+- **Why:** The keyboard behaviour (Enter to advance, F4 picker, Alt+L, Alt+D), accessibility and server error markers are written and tested once.
+
+### D-31 Phone shell and entry layouts below 1024 px
+
+- **Decision:** Below 1024 px the app uses the phone shell (bottom nav) and the phone document-entry layouts. Tablets therefore get the touch layout. At 1024 px and above it uses the desktop shell and LineGrid.
+- **Why:** Tablets at the shop are used by touch, and a desktop grid at 768 px is too cramped for 7–8 columns.
