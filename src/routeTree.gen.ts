@@ -16,6 +16,10 @@ import { Route as AppNoAccessRouteImport } from './routes/_app/no-access'
 import { Route as PublicForgotPasswordRouteImport } from './routes/_public/forgot-password'
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as PublicSetPasswordRouteImport } from './routes/_public/set-password'
+import { Route as AppCatalogueUnitsRouteImport } from './routes/_app/catalogue/units'
+import { Route as AppCatalogueCategoriesIndexRouteImport } from './routes/_app/catalogue/categories/index'
+import { Route as AppCatalogueCategoriesIdRouteImport } from './routes/_app/catalogue/categories/$id'
+import { Route as AppCatalogueCategoriesNewRouteImport } from './routes/_app/catalogue/categories/new'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -50,6 +54,29 @@ const PublicSetPasswordRoute = PublicSetPasswordRouteImport.update({
   path: '/set-password',
   getParentRoute: () => PublicRoute,
 } as any)
+const AppCatalogueUnitsRoute = AppCatalogueUnitsRouteImport.update({
+  id: '/catalogue/units',
+  path: '/catalogue/units',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCatalogueCategoriesIndexRoute =
+  AppCatalogueCategoriesIndexRouteImport.update({
+    id: '/catalogue/categories/',
+    path: '/catalogue/categories/',
+    getParentRoute: () => AppRoute,
+  } as any)
+const AppCatalogueCategoriesIdRoute =
+  AppCatalogueCategoriesIdRouteImport.update({
+    id: '/catalogue/categories/$id',
+    path: '/catalogue/categories/$id',
+    getParentRoute: () => AppRoute,
+  } as any)
+const AppCatalogueCategoriesNewRoute =
+  AppCatalogueCategoriesNewRouteImport.update({
+    id: '/catalogue/categories/new',
+    path: '/catalogue/categories/new',
+    getParentRoute: () => AppRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
@@ -57,6 +84,10 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
+  '/catalogue/units': typeof AppCatalogueUnitsRoute
+  '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
+  '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
+  '/catalogue/categories/': typeof AppCatalogueCategoriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
@@ -64,6 +95,10 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
+  '/catalogue/units': typeof AppCatalogueUnitsRoute
+  '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
+  '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
+  '/catalogue/categories': typeof AppCatalogueCategoriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -74,13 +109,34 @@ export interface FileRoutesById {
   '/_public/login': typeof PublicLoginRoute
   '/_public/set-password': typeof PublicSetPasswordRoute
   '/_app/': typeof AppIndexRoute
+  '/_app/catalogue/units': typeof AppCatalogueUnitsRoute
+  '/_app/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
+  '/_app/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
+  '/_app/catalogue/categories/': typeof AppCatalogueCategoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/no-access' | '/forgot-password' | '/login' | '/set-password'
+    | '/'
+    | '/no-access'
+    | '/forgot-password'
+    | '/login'
+    | '/set-password'
+    | '/catalogue/units'
+    | '/catalogue/categories/$id'
+    | '/catalogue/categories/new'
+    | '/catalogue/categories/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/no-access' | '/forgot-password' | '/login' | '/set-password'
+  to:
+    | '/'
+    | '/no-access'
+    | '/forgot-password'
+    | '/login'
+    | '/set-password'
+    | '/catalogue/units'
+    | '/catalogue/categories/$id'
+    | '/catalogue/categories/new'
+    | '/catalogue/categories'
   id:
     | '__root__'
     | '/_app'
@@ -90,6 +146,10 @@ export interface FileRouteTypes {
     | '/_public/login'
     | '/_public/set-password'
     | '/_app/'
+    | '/_app/catalogue/units'
+    | '/_app/catalogue/categories/$id'
+    | '/_app/catalogue/categories/new'
+    | '/_app/catalogue/categories/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -148,17 +208,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicSetPasswordRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_app/catalogue/units': {
+      id: '/_app/catalogue/units'
+      path: '/catalogue/units'
+      fullPath: '/catalogue/units'
+      preLoaderRoute: typeof AppCatalogueUnitsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/catalogue/categories/': {
+      id: '/_app/catalogue/categories/'
+      path: '/catalogue/categories'
+      fullPath: '/catalogue/categories/'
+      preLoaderRoute: typeof AppCatalogueCategoriesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/catalogue/categories/$id': {
+      id: '/_app/catalogue/categories/$id'
+      path: '/catalogue/categories/$id'
+      fullPath: '/catalogue/categories/$id'
+      preLoaderRoute: typeof AppCatalogueCategoriesIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/catalogue/categories/new': {
+      id: '/_app/catalogue/categories/new'
+      path: '/catalogue/categories/new'
+      fullPath: '/catalogue/categories/new'
+      preLoaderRoute: typeof AppCatalogueCategoriesNewRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppNoAccessRoute: typeof AppNoAccessRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppCatalogueUnitsRoute: typeof AppCatalogueUnitsRoute
+  AppCatalogueCategoriesIdRoute: typeof AppCatalogueCategoriesIdRoute
+  AppCatalogueCategoriesNewRoute: typeof AppCatalogueCategoriesNewRoute
+  AppCatalogueCategoriesIndexRoute: typeof AppCatalogueCategoriesIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppNoAccessRoute: AppNoAccessRoute,
   AppIndexRoute: AppIndexRoute,
+  AppCatalogueUnitsRoute: AppCatalogueUnitsRoute,
+  AppCatalogueCategoriesIdRoute: AppCatalogueCategoriesIdRoute,
+  AppCatalogueCategoriesNewRoute: AppCatalogueCategoriesNewRoute,
+  AppCatalogueCategoriesIndexRoute: AppCatalogueCategoriesIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

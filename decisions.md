@@ -42,6 +42,7 @@ Requirement IDs refer to `backend-api/Billing_Inventory_Requirements_HLD_v2.1.do
 | D-30 | One LineGrid engine for all line-based documents                         | Accepted                        |
 | D-31 | Phone shell and entry layouts below 1024 px                              | Accepted                        |
 | D-32 | Playwright runs against a typed mock API                                 | Accepted                        |
+| D-33 | Own DataTable instead of TanStack Table v9                               | Accepted                        |
 
 ---
 
@@ -190,6 +191,8 @@ Requirement IDs refer to `backend-api/Billing_Inventory_Requirements_HLD_v2.1.do
 
 ### D-18 Tables with TanStack Table v9, server-side paging
 
+**Superseded by D-33** for the table library; server-side paging, sorting and totals still apply.
+
 - **Decision:**
   - Registers use server-side paging, sorting and filtering, which the API supports (max `page_size` 200).
   - TanStack Table renders them headlessly with our own markup.
@@ -305,3 +308,9 @@ e2e/              Playwright specs (desktop + 360 px phone projects)
   - Any API call without a handler fails the test, so new calls cannot slip through unmocked.
   - Both projects run every spec: desktop (1366 px) and phone (360 px).
 - **Limits:** This tests the UI against the contract, not the Go server's behaviour. Before go-live, add a small smoke suite against the real local stack (`supabase start` + `go run ./cmd/api`).
+
+### D-33 Own DataTable instead of TanStack Table v9
+
+- **Context:** Every register pages, sorts and totals on the server (D-18), so a table library would only render rows. TanStack Table v9 has a new store/atoms API that adds complexity for no gain here.
+- **Decision:** `components/shared/DataTable.tsx` takes typed column definitions (`header`, `cell`, `align`, `sortKey`, `footer`, `mobile` role). It provides a sticky header and first column, server sort through the URL, a column picker saved in localStorage, a totals row from server values, skeleton/empty/error states, and a card list below 1024 px (D-31). `@tanstack/react-table` was removed.
+- **Revisit:** If a screen needs client-side grouping or editing in a grid, use TanStack Table for that screen only. The LineGrid (D-30) is separate.

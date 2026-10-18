@@ -17,7 +17,7 @@ export function Field({ label, error, hint, className, children }: Props) {
   const id = useId()
   const descId = `${id}-desc`
   return (
-    <div className={cn('grid gap-1', className)}>
+    <div className={cn('grid content-start gap-1', className)}>
       <Label htmlFor={id} className="text-sm font-medium text-ink">
         {label}
       </Label>

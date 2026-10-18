@@ -97,3 +97,72 @@ export const states = [
   { code: '33', name: 'Tamil Nadu' },
   { code: '32', name: 'Kerala' },
 ]
+
+const unit = (id: number) => units.find((u) => u.id === id)!
+
+export const categories: S['Category'][] = [
+  {
+    id: 1,
+    name: 'Cement',
+    default_hsn: '2523',
+    default_gst: '18',
+    is_active: true,
+    item_count: 2,
+    units: [{ unit: unit(1), is_default: true }],
+    attributes: [
+      {
+        id: 11,
+        code: 'brand',
+        label: 'Brand',
+        data_type: 'text',
+        is_required: true,
+        part_of_name: true,
+        sort_order: 1,
+      },
+      {
+        id: 12,
+        code: 'grade',
+        label: 'Grade',
+        data_type: 'select',
+        options: ['OPC 43', 'OPC 53', 'PPC'],
+        is_required: true,
+        part_of_name: true,
+        sort_order: 2,
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Steel',
+    default_hsn: '7214',
+    default_gst: '18',
+    is_active: true,
+    item_count: 2,
+    units: [
+      { unit: unit(2), is_default: true },
+      { unit: unit(3), is_default: false },
+    ],
+    attributes: [
+      {
+        id: 21,
+        code: 'brand',
+        label: 'Brand',
+        data_type: 'text',
+        is_required: true,
+        part_of_name: true,
+        sort_order: 1,
+      },
+      {
+        id: 22,
+        code: 'size',
+        label: 'Size',
+        data_type: 'number',
+        value_unit: 'mm',
+        is_required: true,
+        part_of_name: true,
+        sort_order: 2,
+      },
+    ],
+  },
+  { id: 3, name: 'Tiles (old)', is_active: false, item_count: 0, units: [], attributes: [] },
+]
