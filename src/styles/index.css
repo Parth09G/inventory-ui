@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/ibm-plex-sans';
+@import '@fontsource/ibm-plex-mono/400.css';
+
+/* Design tokens are defined in the first UI task, following design.md. */

@@ -1,0 +1,270 @@
+# Decisions: Billing & Inventory web app
+
+This file records the important decisions for the web app: what we chose, why, and what we rejected. Add new entries at the end. Never delete an entry. If a decision changes, mark the old one **Superseded by D-xx**.
+
+**Status values:** Accepted · Proposed (needs the owner's confirmation) · Superseded
+
+Requirement IDs refer to `backend-api/Billing_Inventory_Requirements_HLD_v2.1.docx`. Open items (O-xx) are listed in `backend-api/AGENTS.md`.
+
+## Index
+
+| ID   | Decision                                                                 | Status                          |
+| ---- | ------------------------------------------------------------------------ | ------------------------------- |
+| D-01 | Separate repository for the web app                                      | Accepted (differs from HLD 6.8) |
+| D-02 | React 19, not React 18                                                   | Proposed (differs from HLD 6.2) |
+| D-03 | Vite 8, TypeScript 5.9 (strict), Node 24, npm                            | Accepted                        |
+| D-04 | TanStack Router with file-based routes and typed search params           | Accepted                        |
+| D-05 | Server state in TanStack Query; no global client store                   | Accepted                        |
+| D-06 | API client generated from `openapi.yaml`                                 | Accepted                        |
+| D-07 | Money as decimal strings; no arithmetic in the browser                   | Accepted                        |
+| D-08 | Idempotency-Key per form; If-Match for edits; no automatic write retries | Accepted                        |
+| D-09 | Live totals from `/bills/calculate`                                      | Accepted                        |
+| D-10 | Permissions come from `/me` and `allowed_actions`                        | Accepted                        |
+| D-11 | Supabase used only for sign-in                                           | Accepted                        |
+| D-12 | PWA caches the app shell only; no offline billing                        | Accepted                        |
+| D-13 | shadcn/ui on Radix, re-skinned with our own tokens                       | Accepted                        |
+| D-14 | Tailwind CSS v4, tokens in CSS                                           | Accepted                        |
+| D-15 | IBM Plex Sans and Mono, self-hosted                                      | Accepted                        |
+| D-16 | Light theme only in v1                                                   | Proposed                        |
+| D-17 | Forms with React Hook Form and Zod                                       | Accepted                        |
+| D-18 | Tables with TanStack Table v9, server-side paging                        | Accepted                        |
+| D-19 | Charts with Recharts                                                     | Accepted                        |
+| D-20 | Dates with date-fns; IST display; business dates from the server         | Accepted                        |
+| D-21 | Errors handled by problem `code`                                         | Accepted                        |
+| D-22 | Background jobs and e-invoices tracked by polling                        | Accepted                        |
+| D-23 | Feature-based folder structure                                           | Accepted                        |
+| D-24 | Tooling: oxlint, Prettier, Vitest, Playwright                            | Accepted                        |
+| D-25 | English only; no i18n library in v1                                      | Accepted                        |
+| D-26 | Hosting: Vercel in development; production host open                     | Proposed (O-08)                 |
+| D-27 | Separate phone layout for document entry                                 | Accepted                        |
+
+---
+
+### D-01 Separate repository for the web app
+
+- **Context:** HLD 6.8 and `backend-api/AGENTS.md` describe one repository, with the web app in `/web`. The owner asked for a new repository for the UI.
+- **Decision:** The web app lives in its own repository, `frontend-web/`, next to `backend-api/`. The API contract is read from `../backend-api/openapi.yaml` (see D-06).
+- **Consequences:**
+  - The API and UI version and deploy separately.
+  - A contract change needs two PRs: the API PR first, then the UI PR that regenerates the types.
+  - CI must check out both repositories, or use a pinned copy of `openapi.yaml`.
+  - `backend-api/README.md` and `AGENTS.md` still mention `web/` and should be updated to point here.
+- **Rejected:** A `web/` folder inside `backend-api`. It keeps the contract in sync for free, but it is not what the owner asked for.
+
+### D-02 React 19, not React 18 (Proposed)
+
+- **Context:** HLD 6.2 says React 18. The current Vite template, shadcn/ui and Tailwind v4 all target React 19, and React 18 now only receives maintenance fixes.
+- **Decision:** Use React 19. The HLD's intent (React + TypeScript + Vite) is unchanged. We do not use React Server Components or other server features; this is a client-side single-page app.
+- **To confirm:** The owner or architect approves this change from the HLD. Going back to 18 is cheap now and expensive later.
+
+### D-03 Vite 8, TypeScript 5.9 (strict), Node 24, npm
+
+- **Decision:**
+  - TypeScript runs with `strict` and `noUncheckedIndexedAccess`.
+  - TypeScript is pinned to 5.9 because `openapi-typescript` 7 does not yet support TypeScript 6.
+  - Node 24 LTS (`.nvmrc`), with npm as the package manager.
+- **Why npm:** It is one less tool to install on the developer's machines and on Vercel. pnpm would save little at this size.
+- **Revisit:** Move to TypeScript 6 when `openapi-typescript` supports it.
+
+### D-04 TanStack Router with file-based routes and typed search params
+
+- **Context:** The app has many filterable registers. Filters must live in the URL so that a filtered view can be bookmarked and shared (design P7).
+- **Decision:** Use TanStack Router with routes in `src/routes/`. Each register validates its search params with a Zod schema. `src/routeTree.gen.ts` is generated by the Vite plugin and committed to the repository.
+- **Rejected:** React Router 7. It has weaker typing for search params and its framework mode is server-oriented.
+
+### D-05 Server state in TanStack Query; no global client store
+
+- **Decision:**
+  - All API data goes through TanStack Query.
+  - Local UI state stays in components, or in the URL for filters.
+  - No Redux or Zustand. Add a small store only if a real cross-screen client state appears (an open bill draft is not one; see D-17).
+- **Settings:**
+  - `staleTime` is 30 s and data refetches on window focus.
+  - Mutations never retry automatically (see D-08).
+  - After a save, the related lists are invalidated (bills, stock, party balance).
+
+### D-06 API client generated from `openapi.yaml`
+
+- **Context:** API design §1 says the client types come from the contract, so the two cannot drift.
+- **Decision:**
+  - `npm run gen:api` runs `openapi-typescript`, which writes `src/lib/api/schema.d.ts`. That file is committed.
+  - Calls go through one `openapi-fetch` client. Its middleware adds the bearer token, reads `X-Request-Id`, and turns `application/problem+json` responses into typed errors.
+  - Nobody writes request or response types by hand.
+- **Rule:** Every UI change that follows an API change regenerates the file in the same PR.
+
+### D-07 Money as decimal strings; no arithmetic in the browser
+
+- **Context:** The API sends money, quantity and rate as decimal strings (2, 3 and 4 decimal places). Totals and tax are computed only on the server (NFR-02; API design 6.5).
+- **Decision:**
+  - Values stay as strings from the API to the screen.
+  - One formatting module, `lib/format`, uses `Intl.NumberFormat('en-IN')` for display only.
+  - Inputs keep the typed string and validate its format (for example `^\d+(\.\d{1,3})?$` for quantity). They never parse it into `number` to do arithmetic.
+  - No decimal library for now. Add one only if a real client-side calculation becomes unavoidable, and record that here.
+
+### D-08 Idempotency-Key per form; If-Match for edits; no automatic write retries
+
+- **Decision:**
+  - A form that creates a document makes a UUID (`crypto.randomUUID()`) when it opens. It reuses that key for every retry of the same save, and makes a new one after a successful save.
+  - Bill edits and cancels send `If-Match` with the ETag from `GET /bills/{id}`.
+  - A `412 VERSION_MISMATCH` shows the reload flow from design P6 and keeps the user's edits visible.
+  - Writes are retried only when the user clicks Retry, with the same key. This makes duplicate bills impossible, even on a slow phone network.
+
+### D-09 Live totals from `/bills/calculate`
+
+- **Decision:**
+  - The bill form posts its current body to `/bills/calculate`, debounced by 300 ms. Requests that have been overtaken by newer ones are cancelled with `AbortController`.
+  - While a request is in flight, the previous totals stay on screen, dimmed.
+  - On save, the form sends the grand total it displayed as `expected_total`.
+  - The same approach applies to purchases and returns if the API offers a calculate endpoint for them. Otherwise totals appear after saving. Totals are never computed in the browser.
+
+### D-10 Permissions come from `/me` and `allowed_actions`
+
+- **Decision:**
+  - After sign-in, the app loads `/me` once (it is cached and refetched on focus).
+  - Navigation and buttons use its permission keys. Bill actions use `allowed_actions`.
+  - Routes check permissions only to shape the UI. The server enforces every permission (FR-AU-04), and a 403 is always handled.
+  - The UI never re-implements rules such as the 24-hour IRN window or "Super Admin only".
+
+### D-11 Supabase used only for sign-in
+
+- **Context:** NFR-03 and API rule 1: the browser never reads business data from Supabase.
+- **Decision:**
+  - `supabase-js` handles only sign-in, the password reset email, session refresh and sign-out.
+  - The access token is attached to API calls by the fetch middleware.
+  - Only the anon key is in the client environment.
+  - No `supabase.from(...)` calls anywhere. This is enforced in code review and with a lint rule.
+- **Consequence:** If a user is deactivated, their next API call fails with 401. The app signs them out with the message "Your access was removed".
+
+### D-12 PWA caches the app shell only; no offline billing
+
+- **Context:** HLD 6.3 says billing still needs the internet. Stock and numbering need the server's transaction.
+- **Decision:**
+  - `vite-plugin-pwa` precaches the app shell, so the app is installable and opens quickly.
+  - API responses are never cached by the service worker.
+  - When offline, the app shows a banner and saving is disabled (design P9).
+  - Updates use `registerType: 'prompt'`, so a new version never reloads the page in the middle of a bill. The user sees "New version available – Reload".
+
+### D-13 shadcn/ui on Radix, re-skinned with our own tokens
+
+- **Context:** HLD 6.3 chooses shadcn/ui. Its default theme is one of the clearest signs of a vibe-coded app (design §4).
+- **Decision:**
+  - Components are added with `npx shadcn add` into `src/components/ui/`, and their styles are edited to our tokens straight away. These files are ours and are expected to change.
+  - App-level components that are shared across features go in `src/components/shared/`.
+  - `components.json` exists, but `shadcn init` was not run, so its default theme was never imported.
+
+### D-14 Tailwind CSS v4, tokens in CSS
+
+- **Decision:**
+  - Use Tailwind v4 through `@tailwindcss/vite`.
+  - Design tokens (colour, radius, font, spacing additions) are CSS custom properties in `src/styles/index.css`, defined with `@theme`. There is no `tailwind.config.js`.
+  - Components use only token-based classes. Hex values in components are a review failure.
+  - Prettier sorts class names (`prettier-plugin-tailwindcss`).
+
+### D-15 IBM Plex Sans and Mono, self-hosted
+
+- **Why:**
+  - Plex has clear tabular figures and includes the ₹ sign.
+  - Plex Mono keeps codes (GSTIN, IRN) unambiguous.
+  - It is distinctive without being decorative, and it is not Inter, the default in most generated UIs.
+- **Decision:** Load the fonts through `@fontsource` packages, so they are bundled, cached by the PWA and need no request to a third-party font host.
+
+### D-16 Light theme only in v1 (Proposed)
+
+- **Why:**
+  - The counter is brightly lit and the printed documents are light.
+  - Shipping one theme well is better than shipping two at half quality.
+- **Decision:** Ship a light theme only. Tokens are named by role (`paper`, `ink`, `rule`, and so on), so a dark theme can be added later without touching components.
+
+### D-17 Forms with React Hook Form and Zod
+
+- **Decision:**
+  - Use RHF with `@hookform/resolvers` and Zod 4.
+  - Zod schemas cover input format and required fields only. Business validation stays on the server, and its field errors are mapped back with `setError` (design P6).
+  - Bill and purchase line grids use `useFieldArray`.
+  - An unsaved bill form is autosaved to `localStorage` per tab, so a refresh does not lose work. Saving a server draft (FR-BL-09) remains an explicit action.
+
+### D-18 Tables with TanStack Table v9, server-side paging
+
+- **Decision:**
+  - Registers use server-side paging, sorting and filtering, which the API supports (max `page_size` 200).
+  - TanStack Table renders them headlessly with our own markup.
+  - `@tanstack/react-virtual` is used only for long client-side lists, such as the item picker and stock count sheets.
+  - Totals rows come from the server.
+
+### D-19 Charts with Recharts
+
+- **Decision:** Use Recharts, as in HLD 6.3, for the dashboard trend and the breakdown charts. Charts follow the dataviz rules: restrained palette from the tokens, direct labels, and a table alternative. Keep charts to a minimum (design 8.3).
+
+### D-20 Dates with date-fns; IST display; business dates from the server
+
+- **Decision:**
+  - Display dates as DD-MM-YYYY, and timestamps in IST.
+  - Business dates (`bill_date`) are plain `YYYY-MM-DD` strings and are never converted through `Date` and time zones.
+  - The default "today" comes from the server's IST date where the API provides it. Otherwise it is computed in the `Asia/Kolkata` time zone.
+  - The FY label (`26-27`) is shown as the server sends it.
+
+### D-21 Errors handled by problem `code`
+
+- **Decision:**
+  - The API client throws an `ApiProblem` with `status`, `code`, `errors[]` and `request_id`.
+  - Screens handle the codes listed in API design 2.3, as described in design P6.
+  - Unknown errors fall back to a message showing the `request_id`.
+  - 401 leads to sign-in. 429 shows "Too many requests – try again in a moment".
+
+### D-22 Background jobs and e-invoices tracked by polling
+
+- **Decision:**
+  - A 202 response with a Job is polled at `GET /jobs/{id}` every 2 s until it succeeds or fails. Progress is shown inline.
+  - A bill with `einvoice.status = pending` is refetched every 3 s while it is open, and stops after 2 minutes with "Still waiting for the portal".
+  - Signed download URLs (valid for 10 minutes) are opened immediately and never stored.
+
+### D-23 Feature-based folder structure
+
+```
+src/
+  app/            providers, router, query client
+  routes/         TanStack file routes (thin: layout + data loading, render feature components)
+  features/<x>/   screens, components, hooks, queries and schemas for one area
+                  (auth, dashboard, billing, returns, payments, parties, purchases,
+                   inventory, catalogue, reports, tally, notifications, settings, users)
+  components/ui/  shadcn primitives (re-skinned)
+  components/shared/  app-wide composites (DataTable, MoneyCell, StatusBadge, PageHeader …)
+  lib/            api client + generated schema, env, format, utils
+  hooks/          app-wide hooks (shortcuts, debounce, online status)
+  styles/         index.css with tokens
+  test/           test setup
+e2e/              Playwright specs (desktop + 360 px phone projects)
+```
+
+- **Rule:** Features never import from each other's internals. Anything shared moves to `components/shared` or `lib`.
+
+### D-24 Tooling: oxlint, Prettier, Vitest, Playwright
+
+- **Decision:**
+  - oxlint, from the Vite template; it is fast and covers the React hooks rules.
+  - Prettier with the Tailwind plugin.
+  - Vitest with Testing Library and jsdom for unit and component tests.
+  - Playwright for end-to-end tests, with two projects: desktop, and a phone at 360 px (NFR-06). The locale is `en-IN` and the time zone `Asia/Kolkata`.
+- **CI gate:** `typecheck`, `lint`, `test` and `build` must pass. Playwright runs against a seeded local API.
+- **Setup note:** Playwright browsers are not downloaded yet. Run `npx playwright install chromium` before the first end-to-end test.
+
+### D-25 English only; no i18n library in v1
+
+- **Context:** Kannada invoices are out of scope for v1 (PRD 1.1).
+- **Decision:**
+  - Write strings in English, directly in the components.
+  - Keep wording consistent with the glossary (design §9), so that extracting the strings later is mechanical.
+  - Do not add an i18n library until a second language is actually planned.
+
+### D-26 Hosting: Vercel in development; production host open (Proposed, O-08)
+
+- **Decision:** Use Vercel Hobby for development and preview deployments. Before real billing starts, move to either Vercel Pro or Cloudflare Pages (free tier, business use allowed), whichever the owner chooses (O-08). The build is a plain static `dist/`, so both hosts work without changes.
+- **Required:** The SPA fallback (rewrite all paths to `/index.html`) must be configured on the chosen host. The API's CORS list must include the web domain.
+
+### D-27 Separate phone layout for document entry
+
+- **Context:** A desktop bill grid squeezed to 360 px cannot be used (NFR-06).
+- **Decision:**
+  - Bill, purchase, transfer and count entry each have a phone layout: line cards, a bottom-sheet editor, and a pinned total and save bar.
+  - Both layouts share the same form state and API calls. Only the presentation differs.
+  - Registers on phone show a card list with the 3–4 key fields instead of a wide table.
