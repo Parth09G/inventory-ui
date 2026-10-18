@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { balance, date, dateTime, isZero, money, qty, rate, shortDate } from './format'
+import { balance, date, dateTime, isZero, money, qty, rate, shortDate, trimZeros } from './format'
 
 describe('format', () => {
   it('formats money with Indian grouping and exact decimals', () => {
@@ -27,5 +27,10 @@ describe('format', () => {
     expect(date('2026-04-01')).toBe('01-04-2026')
     expect(shortDate('2026-10-18')).toBe('18 Oct')
     expect(dateTime('2026-10-18T09:35:00Z')).toBe('18-10-2026, 3:05 pm')
+  })
+  it('trims padding zeros for inputs', () => {
+    expect(trimZeros('1000.0000')).toBe('1000')
+    expect(trimZeros('62.5000')).toBe('62.5')
+    expect(trimZeros('500')).toBe('500')
   })
 })

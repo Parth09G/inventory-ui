@@ -166,3 +166,74 @@ export const categories: S['Category'][] = [
   },
   { id: 3, name: 'Tiles (old)', is_active: false, item_count: 0, units: [], attributes: [] },
 ]
+
+const stock = (shop: string, g1: string, g2: string): S['StockByLocation'][] => [
+  { location_id: 1, location_name: 'Shop', qty: shop },
+  { location_id: 2, location_name: 'Godown 1', qty: g1 },
+  { location_id: 3, location_name: 'Godown 2', qty: g2 },
+]
+
+export const items: S['Item'][] = [
+  {
+    id: 41,
+    category_id: 2,
+    category_name: 'Steel',
+    name: 'JSW 12 mm',
+    attributes: { brand: 'JSW', size: 12 },
+    hsn_code: '7214',
+    gst_rate: '18',
+    base_unit: unit(2),
+    units: [
+      { unit_id: 2, symbol: 'kg', factor_to_base: '1.0000' },
+      { unit_id: 3, symbol: 'ton', factor_to_base: '1000.0000' },
+    ],
+    reorder_level: '500.000',
+    avg_cost: '62.5000',
+    last_purchase_rate: '63.0000',
+    is_active: true,
+    stock_total: '1620.000',
+    stock: stock('120.000', '1500.000', '0.000'),
+    stock_value: '101250.00',
+    stock_status: 'ok',
+  },
+  {
+    id: 12,
+    category_id: 1,
+    category_name: 'Cement',
+    name: 'UltraTech OPC 53',
+    attributes: { brand: 'UltraTech', grade: 'OPC 53' },
+    hsn_code: '2523',
+    gst_rate: '28',
+    base_unit: unit(1),
+    units: [{ unit_id: 1, symbol: 'bag', factor_to_base: '1.0000' }],
+    reorder_level: '50.000',
+    avg_cost: '385.0000',
+    is_active: true,
+    stock_total: '40.000',
+    stock: stock('0.000', '40.000', '0.000'),
+    stock_value: '15400.00',
+    stock_status: 'low',
+  },
+  {
+    id: 13,
+    category_id: 1,
+    category_name: 'Cement',
+    name: 'ACC PPC',
+    attributes: { brand: 'ACC', grade: 'PPC' },
+    hsn_code: '2523',
+    gst_rate: '28',
+    base_unit: unit(1),
+    units: [{ unit_id: 1, symbol: 'bag', factor_to_base: '1.0000' }],
+    reorder_level: '50.000',
+    avg_cost: '360.0000',
+    is_active: true,
+    stock_total: '0.000',
+    stock: stock('0.000', '0.000', '0.000'),
+    stock_value: '0.00',
+    stock_status: 'out',
+  },
+]
+
+export function page<T>(rows: T[], p = 1, total = rows.length, page_size = 50) {
+  return { data: rows, meta: { page: p, page_size, total } }
+}

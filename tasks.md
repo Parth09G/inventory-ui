@@ -19,9 +19,9 @@ Playwright specs run against a mocked API (`e2e/support/`), with fixtures typed 
 - [x] T1.1 Shared data display: PageHeader, DataTable, FilterBar, MobileCardList, Money/Qty/Rate, StatusBadge, StockByLocation, Empty/Error states
 - [x] T1.2 Units (#35)
 - [x] T1.3 Categories list (#33) and wizard/editor (#34)
-- [ ] T1.4 Inventory grid (#19)
-- [ ] T1.5 Item form (#20) and item detail with stock ledger (#21)
-- [ ] T1.6 Item import (#22)
+- [x] T1.4 Inventory grid (#19)
+- [x] T1.5 Item form (#20) and item detail with stock ledger (#21)
+- [x] T1.6 Item import (#22)
 
 ## M2 Parties
 

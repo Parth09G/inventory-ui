@@ -380,3 +380,5 @@ Every feature follows the same pattern: `api.ts`, `schemas.ts`, page components,
 
 - No `GET /stock-adjustments/{id}`, and no list endpoint for purchase returns or stock counts. The UI uses expandable rows and the purchase view instead.
 - No calculate endpoint for purchases and returns, so their totals appear only after saving.
+- **Item import results are not exposed.** The worker records `{rows, created, errors[]}`, but the `Job` schema has no `result` field. A job also succeeds when every row failed, because it rolls back and reports the errors only in that hidden result. The import page can therefore only say "finished". Proposed: add `result` (an object) to `Job` in `openapi.yaml` and `jobs.ToAPI`; the UI will then show counts and a row-error table.
+- **Unit lock is not flagged on the item.** FR-IN-07 locks unit factors once an item has movements. The UI infers this from `GET /items/{id}/movements?page_size=1`. A `has_movements` (or `units_locked`) field on `Item` would save a call.

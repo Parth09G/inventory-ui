@@ -17,9 +17,14 @@ import { Route as PublicForgotPasswordRouteImport } from './routes/_public/forgo
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as PublicSetPasswordRouteImport } from './routes/_public/set-password'
 import { Route as AppCatalogueUnitsRouteImport } from './routes/_app/catalogue/units'
+import { Route as AppInventoryIndexRouteImport } from './routes/_app/inventory/index'
+import { Route as AppItemsImportRouteImport } from './routes/_app/items/import'
+import { Route as AppItemsNewRouteImport } from './routes/_app/items/new'
 import { Route as AppCatalogueCategoriesIndexRouteImport } from './routes/_app/catalogue/categories/index'
 import { Route as AppCatalogueCategoriesIdRouteImport } from './routes/_app/catalogue/categories/$id'
 import { Route as AppCatalogueCategoriesNewRouteImport } from './routes/_app/catalogue/categories/new'
+import { Route as AppItemsIdIndexRouteImport } from './routes/_app/items/$id.index'
+import { Route as AppItemsIdEditRouteImport } from './routes/_app/items/$id.edit'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -59,6 +64,21 @@ const AppCatalogueUnitsRoute = AppCatalogueUnitsRouteImport.update({
   path: '/catalogue/units',
   getParentRoute: () => AppRoute,
 } as any)
+const AppInventoryIndexRoute = AppInventoryIndexRouteImport.update({
+  id: '/inventory/',
+  path: '/inventory/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppItemsImportRoute = AppItemsImportRouteImport.update({
+  id: '/items/import',
+  path: '/items/import',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppItemsNewRoute = AppItemsNewRouteImport.update({
+  id: '/items/new',
+  path: '/items/new',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCatalogueCategoriesIndexRoute =
   AppCatalogueCategoriesIndexRouteImport.update({
     id: '/catalogue/categories/',
@@ -77,6 +97,16 @@ const AppCatalogueCategoriesNewRoute =
     path: '/catalogue/categories/new',
     getParentRoute: () => AppRoute,
   } as any)
+const AppItemsIdIndexRoute = AppItemsIdIndexRouteImport.update({
+  id: '/items/$id/',
+  path: '/items/$id/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppItemsIdEditRoute = AppItemsIdEditRouteImport.update({
+  id: '/items/$id/edit',
+  path: '/items/$id/edit',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
@@ -85,9 +115,14 @@ export interface FileRoutesByFullPath {
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
   '/catalogue/units': typeof AppCatalogueUnitsRoute
+  '/items/import': typeof AppItemsImportRoute
+  '/items/new': typeof AppItemsNewRoute
+  '/inventory/': typeof AppInventoryIndexRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
+  '/items/$id/edit': typeof AppItemsIdEditRoute
   '/catalogue/categories/': typeof AppCatalogueCategoriesIndexRoute
+  '/items/$id/': typeof AppItemsIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
@@ -96,9 +131,14 @@ export interface FileRoutesByTo {
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
   '/catalogue/units': typeof AppCatalogueUnitsRoute
+  '/items/import': typeof AppItemsImportRoute
+  '/items/new': typeof AppItemsNewRoute
+  '/inventory': typeof AppInventoryIndexRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
+  '/items/$id/edit': typeof AppItemsIdEditRoute
   '/catalogue/categories': typeof AppCatalogueCategoriesIndexRoute
+  '/items/$id': typeof AppItemsIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -110,9 +150,14 @@ export interface FileRoutesById {
   '/_public/set-password': typeof PublicSetPasswordRoute
   '/_app/': typeof AppIndexRoute
   '/_app/catalogue/units': typeof AppCatalogueUnitsRoute
+  '/_app/items/import': typeof AppItemsImportRoute
+  '/_app/items/new': typeof AppItemsNewRoute
+  '/_app/inventory/': typeof AppInventoryIndexRoute
   '/_app/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
   '/_app/catalogue/categories/new': typeof AppCatalogueCategoriesNewRoute
+  '/_app/items/$id/edit': typeof AppItemsIdEditRoute
   '/_app/catalogue/categories/': typeof AppCatalogueCategoriesIndexRoute
+  '/_app/items/$id/': typeof AppItemsIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -123,9 +168,14 @@ export interface FileRouteTypes {
     | '/login'
     | '/set-password'
     | '/catalogue/units'
+    | '/items/import'
+    | '/items/new'
+    | '/inventory/'
     | '/catalogue/categories/$id'
     | '/catalogue/categories/new'
+    | '/items/$id/edit'
     | '/catalogue/categories/'
+    | '/items/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -134,9 +184,14 @@ export interface FileRouteTypes {
     | '/login'
     | '/set-password'
     | '/catalogue/units'
+    | '/items/import'
+    | '/items/new'
+    | '/inventory'
     | '/catalogue/categories/$id'
     | '/catalogue/categories/new'
+    | '/items/$id/edit'
     | '/catalogue/categories'
+    | '/items/$id'
   id:
     | '__root__'
     | '/_app'
@@ -147,9 +202,14 @@ export interface FileRouteTypes {
     | '/_public/set-password'
     | '/_app/'
     | '/_app/catalogue/units'
+    | '/_app/items/import'
+    | '/_app/items/new'
+    | '/_app/inventory/'
     | '/_app/catalogue/categories/$id'
     | '/_app/catalogue/categories/new'
+    | '/_app/items/$id/edit'
     | '/_app/catalogue/categories/'
+    | '/_app/items/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -215,6 +275,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCatalogueUnitsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/inventory/': {
+      id: '/_app/inventory/'
+      path: '/inventory'
+      fullPath: '/inventory/'
+      preLoaderRoute: typeof AppInventoryIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/items/import': {
+      id: '/_app/items/import'
+      path: '/items/import'
+      fullPath: '/items/import'
+      preLoaderRoute: typeof AppItemsImportRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/items/new': {
+      id: '/_app/items/new'
+      path: '/items/new'
+      fullPath: '/items/new'
+      preLoaderRoute: typeof AppItemsNewRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/catalogue/categories/': {
       id: '/_app/catalogue/categories/'
       path: '/catalogue/categories'
@@ -236,6 +317,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCatalogueCategoriesNewRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/items/$id/': {
+      id: '/_app/items/$id/'
+      path: '/items/$id'
+      fullPath: '/items/$id/'
+      preLoaderRoute: typeof AppItemsIdIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/items/$id/edit': {
+      id: '/_app/items/$id/edit'
+      path: '/items/$id/edit'
+      fullPath: '/items/$id/edit'
+      preLoaderRoute: typeof AppItemsIdEditRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -243,18 +338,28 @@ interface AppRouteChildren {
   AppNoAccessRoute: typeof AppNoAccessRoute
   AppIndexRoute: typeof AppIndexRoute
   AppCatalogueUnitsRoute: typeof AppCatalogueUnitsRoute
+  AppItemsImportRoute: typeof AppItemsImportRoute
+  AppItemsNewRoute: typeof AppItemsNewRoute
+  AppInventoryIndexRoute: typeof AppInventoryIndexRoute
   AppCatalogueCategoriesIdRoute: typeof AppCatalogueCategoriesIdRoute
   AppCatalogueCategoriesNewRoute: typeof AppCatalogueCategoriesNewRoute
+  AppItemsIdEditRoute: typeof AppItemsIdEditRoute
   AppCatalogueCategoriesIndexRoute: typeof AppCatalogueCategoriesIndexRoute
+  AppItemsIdIndexRoute: typeof AppItemsIdIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppNoAccessRoute: AppNoAccessRoute,
   AppIndexRoute: AppIndexRoute,
   AppCatalogueUnitsRoute: AppCatalogueUnitsRoute,
+  AppItemsImportRoute: AppItemsImportRoute,
+  AppItemsNewRoute: AppItemsNewRoute,
+  AppInventoryIndexRoute: AppInventoryIndexRoute,
   AppCatalogueCategoriesIdRoute: AppCatalogueCategoriesIdRoute,
   AppCatalogueCategoriesNewRoute: AppCatalogueCategoriesNewRoute,
+  AppItemsIdEditRoute: AppItemsIdEditRoute,
   AppCatalogueCategoriesIndexRoute: AppCatalogueCategoriesIndexRoute,
+  AppItemsIdIndexRoute: AppItemsIdIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

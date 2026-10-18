@@ -22,6 +22,11 @@ export class Reply {
   ) {}
 }
 
+/** A file download reply (non-JSON body). */
+export function file(contentType: string, content: string) {
+  return new Reply(200, Buffer.from(content), { 'content-type': contentType })
+}
+
 /** RFC 9457 problem reply. */
 export function problem(status: number, code: string, extra: Record<string, unknown> = {}) {
   return new Reply(
@@ -154,7 +159,12 @@ export class MockApi {
           ...CORS,
           ...reply.headers,
         },
-        body: reply.body === undefined ? '' : JSON.stringify(reply.body),
+        body:
+          reply.body === undefined
+            ? ''
+            : reply.body instanceof Buffer
+              ? reply.body
+              : JSON.stringify(reply.body),
       })
     })
 

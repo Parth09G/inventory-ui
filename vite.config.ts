@@ -26,6 +26,9 @@ export default defineConfig({
       workbox: { navigateFallbackDenylist: [/^\/api\//] },
     }),
   ],
+  // Pre-bundle every dependency at startup, so a dependency first used deep in the app
+  // does not trigger a re-optimise and full reload mid-session (and mid-test).
+  optimizeDeps: { entries: ['src/**/*.{ts,tsx}'] },
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },

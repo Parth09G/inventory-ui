@@ -88,6 +88,12 @@ export function todayIST(): string {
   return new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(new Date())
 }
 
+/** "1000.0000" → "1000", "62.5000" → "62.5": API decimals shown in inputs without padding. */
+export function trimZeros(value: Dec): string {
+  if (!value) return ''
+  return value.includes('.') ? value.replace(/\.?0+$/, '') : value
+}
+
 // Input formats; values stay strings (D-07).
 export const MONEY_RE = /^\d{1,12}(\.\d{1,2})?$/
 export const QTY_RE = /^\d{1,11}(\.\d{1,3})?$/

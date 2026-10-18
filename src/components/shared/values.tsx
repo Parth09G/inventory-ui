@@ -40,7 +40,7 @@ export function Qty({
       className={cn('whitespace-nowrap tabular', f.isNegative(value) && 'text-danger', className)}
     >
       {f.qty(value, decimals)}
-      {unit && <span className="ml-1 text-ink-muted">{unit}</span>}
+      {unit && <span className="text-ink-muted"> {unit}</span>}
     </span>
   )
 }

@@ -1,5 +1,5 @@
 import { Search, X } from 'lucide-react'
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useId, useState, type ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
@@ -78,13 +78,17 @@ export function FilterSelect<V extends string>({
   options: { value: V; label: string }[]
   allLabel?: string
 }) {
+  const id = useId()
   return (
-    <label className="grid gap-0.5 text-xs font-medium text-ink-muted">
-      {label}
+    <div className="grid gap-0.5">
+      <label htmlFor={id} className="text-xs font-medium text-ink-muted">
+        {label}
+      </label>
       <select
+        id={id}
         value={value ?? ''}
         onChange={(e) => onChange((e.target.value || undefined) as V | undefined)}
-        className="h-(--control-h) min-w-32 rounded-md border border-input bg-surface px-2 text-base font-normal text-ink"
+        className="h-(--control-h) min-w-32 rounded-md border border-input bg-surface px-2 text-base text-ink"
       >
         <option value="">{allLabel}</option>
         {options.map((o) => (
@@ -93,6 +97,6 @@ export function FilterSelect<V extends string>({
           </option>
         ))}
       </select>
-    </label>
+    </div>
   )
 }
