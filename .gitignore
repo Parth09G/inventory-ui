@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
+!.env.e2e
 
 # Build / deps
 node_modules/
@@ -24,3 +25,6 @@ coverage/
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Local screenshot helper for visual review
+e2e/zz-*.spec.ts

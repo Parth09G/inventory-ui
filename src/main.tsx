@@ -4,7 +4,18 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { queryClient } from '@/app/query-client'
 import { router } from '@/app/router'
+import { applySavedDensity } from '@/hooks/useDensity'
+import { setUnauthenticatedHandler } from '@/lib/api/client'
+import { signOut } from '@/lib/auth/session'
 import '@/styles/index.css'
+
+applySavedDensity()
+
+// A 401 on any call except /me (handled by the _app guard) means the session ended.
+setUnauthenticatedHandler((url) => {
+  if (new URL(url).pathname.endsWith('/me')) return
+  void signOut().then(() => router.navigate({ to: '/login', search: { reason: 'expired' } }))
+})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

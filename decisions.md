@@ -41,6 +41,7 @@ Requirement IDs refer to `backend-api/Billing_Inventory_Requirements_HLD_v2.1.do
 | D-29 | One generic report viewer driven by column metadata                      | Accepted                        |
 | D-30 | One LineGrid engine for all line-based documents                         | Accepted                        |
 | D-31 | Phone shell and entry layouts below 1024 px                              | Accepted                        |
+| D-32 | Playwright runs against a typed mock API                                 | Accepted                        |
 
 ---
 
@@ -293,3 +294,14 @@ e2e/              Playwright specs (desktop + 360 px phone projects)
 
 - **Decision:** Below 1024 px the app uses the phone shell (bottom nav) and the phone document-entry layouts. Tablets therefore get the touch layout. At 1024 px and above it uses the desktop shell and LineGrid.
 - **Why:** Tablets at the shop are used by touch, and a desktop grid at 768 px is too cramped for 7–8 columns.
+
+### D-32 Playwright runs against a typed mock API
+
+- **Context:** Each task is checked with Playwright. Running the real stack needs Go, the Supabase CLI and Docker images, and gives slow, stateful tests.
+- **Decision:**
+  - The app runs in Vite mode `e2e` (`.env.e2e`), pointing at the fake hosts `api.mock` and `supabase.mock`.
+  - `e2e/support/mock-api.ts` intercepts them in the browser. Supabase Auth (password sign-in, refresh, sign-out, recover, update user) is mocked as well.
+  - Handlers are typed from `src/lib/api/schema.d.ts`: `mock.on('get', '/items/{id}', …)` must return that operation's success body, so fixtures that drift from `openapi.yaml` fail to compile.
+  - Any API call without a handler fails the test, so new calls cannot slip through unmocked.
+  - Both projects run every spec: desktop (1366 px) and phone (360 px).
+- **Limits:** This tests the UI against the contract, not the Go server's behaviour. Before go-live, add a small smoke suite against the real local stack (`supabase start` + `go run ./cmd/api`).

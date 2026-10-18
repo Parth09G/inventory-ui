@@ -1,12 +1,29 @@
 import { defineConfig, devices } from '@playwright/test'
 
+const PORT = 5174
+
 export default defineConfig({
   testDir: './e2e',
-  use: { baseURL: 'http://localhost:5173', locale: 'en-IN', timezoneId: 'Asia/Kolkata' },
+  fullyParallel: true,
+  reporter: [['list']],
+  use: {
+    baseURL: `http://localhost:${PORT}`,
+    locale: 'en-IN',
+    timezoneId: 'Asia/Kolkata',
+    trace: 'retain-on-failure',
+  },
   projects: [
-    { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
+    {
+      name: 'desktop',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1366, height: 800 } },
+    },
     // NFR-06: must work from 360 px phone width.
     { name: 'phone', use: { ...devices['Pixel 7'], viewport: { width: 360, height: 780 } } },
   ],
-  webServer: { command: 'npm run dev', url: 'http://localhost:5173', reuseExistingServer: true },
+  // The app runs in "e2e" mode against mocked API and Supabase hosts (e2e/support, D-32).
+  webServer: {
+    command: `npx vite --mode e2e --port ${PORT} --strictPort`,
+    url: `http://localhost:${PORT}`,
+    reuseExistingServer: !process.env.CI,
+  },
 })
