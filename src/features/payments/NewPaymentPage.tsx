@@ -25,6 +25,7 @@ import { billsQuery } from '@/features/billing/api'
 import { partyQuery, type Party } from '@/features/parties/api'
 import { purchasesQuery } from '@/features/purchases/api'
 import { useIdempotencyKey } from '@/hooks/useIdempotencyKey'
+import { useShortcut } from '@/hooks/useShortcut'
 import { formError } from '@/lib/api/forms'
 import { isZero, MONEY_RE, todayIST } from '@/lib/format'
 import { cn } from '@/lib/utils'
@@ -178,6 +179,7 @@ export function NewPaymentPage({
       setAlert(formError(e, form.setError))
     }
   })
+  useShortcut('ctrl+enter', () => void onSubmit(), { allowInInputs: true })
 
   const e = form.formState.errors
   return (

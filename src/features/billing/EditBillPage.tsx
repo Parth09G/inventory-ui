@@ -38,7 +38,11 @@ export function EditBillPage({ id }: { id: number }) {
           Only the owner (Super Admin) can edit a saved bill, within the e-invoice window. Use a
           return (credit note) to correct it.
         </p>
-        <Link to="/bills/$id" params={{ id }} className="text-steel hover:underline">
+        <Link
+          to="/bills/$id"
+          params={{ id }}
+          className="text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
+        >
           Back to bill {b.bill_no}
         </Link>
       </div>

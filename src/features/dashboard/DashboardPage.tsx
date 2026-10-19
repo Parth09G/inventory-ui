@@ -129,7 +129,7 @@ export function DashboardPage() {
         <Link
           to="/bills"
           search={{ unlinked_account_bills: true }}
-          className="text-steel hover:underline"
+          className="text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
         >
           Account bills not linked to a Cash bill
         </Link>{' '}
@@ -270,7 +270,7 @@ function LowStock({ items }: { items: import('@/features/inventory/api').Item[] 
         <Link
           to="/inventory"
           search={{ stock_status: 'low' }}
-          className="text-sm text-steel hover:underline"
+          className="text-sm text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
         >
           All low stock
         </Link>

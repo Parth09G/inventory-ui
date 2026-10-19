@@ -26,7 +26,7 @@
   --color-surface-sunken: #efefea;
   --color-ink: #1c1f23;
   --color-ink-muted: #5b6169;
-  --color-ink-faint: #8a9098;
+  --color-ink-faint: #60666e; /* 4.5:1 on paper and sunken surfaces */
   --color-rule: #deddd6;
   --color-rule-strong: #c4c3bb;
   --color-steel: #2f5d8a;
@@ -34,10 +34,11 @@
   --color-cash: #1c1f23;
   --color-account: #0f6e6e;
   --color-account-tint: rgb(15 110 110 / 0.1);
-  --color-success: #2e7d4f;
+  /* Status text sits on its 10% tint; these steps keep it at 4.5:1 or more (WCAG AA). */
+  --color-success: #23673f;
   --color-success-tint: rgb(46 125 79 / 0.1);
-  --color-warning: #b26b00;
-  --color-warning-tint: rgb(178 107 0 / 0.1);
+  --color-warning: #8a5300;
+  --color-warning-tint: rgb(178 107 0 / 0.12);
   --color-danger: #b42318;
   --color-danger-tint: rgb(180 35 24 / 0.1);
   --color-info: #2f5d8a;

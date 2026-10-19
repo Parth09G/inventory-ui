@@ -36,7 +36,7 @@ export function NotificationBell() {
           {count > 0 && (
             <button
               type="button"
-              className="text-sm text-steel hover:underline"
+              className="text-sm text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
               onClick={() => markAll.mutate()}
               disabled={markAll.isPending}
             >
@@ -56,7 +56,7 @@ export function NotificationBell() {
                   <span>{dateTime(n.created_at)}</span>
                   <button
                     type="button"
-                    className="text-steel hover:underline"
+                    className="text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
                     onClick={() => markOne.mutate(n.id)}
                   >
                     Mark read

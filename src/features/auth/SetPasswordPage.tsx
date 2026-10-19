@@ -56,7 +56,7 @@ export function SetPasswordPage() {
         <p>This link has expired or was already used.</p>
         <Link
           to="/forgot-password"
-          className="text-sm text-steel underline-offset-4 hover:underline"
+          className="text-sm text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
         >
           Send a new link
         </Link>

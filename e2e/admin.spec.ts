@@ -229,13 +229,11 @@ test.describe('tally (#40) and audit log (#41)', () => {
     expect(body.scope).toEqual(['masters', 'sales', 'credit_notes', 'receipts', 'purchases'])
 
     await page.getByRole('tab', { name: 'Import' }).click()
-    await page
-      .getByLabel('Tally export (XML or Excel)')
-      .setInputFiles({
-        name: 'tally.xml',
-        mimeType: 'text/xml',
-        buffer: Buffer.from('<ENVELOPE/>'),
-      })
+    await page.getByLabel('Tally export (XML or Excel)').setInputFiles({
+      name: 'tally.xml',
+      mimeType: 'text/xml',
+      buffer: Buffer.from('<ENVELOPE/>'),
+    })
     await page.getByRole('button', { name: 'Upload and preview' }).click()
     const preview = page.getByRole('region', { name: 'Import preview' })
     await expect(preview).toContainText('Unit "Qtl" is not set up')

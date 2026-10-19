@@ -24,6 +24,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { billQuery } from '@/features/billing/api'
 import type { Bill } from '@/features/billing/bill-form'
 import { useIdempotencyKey } from '@/hooks/useIdempotencyKey'
+import { useShortcut } from '@/hooks/useShortcut'
 import { useIsPhone } from '@/hooks/useMediaQuery'
 import { formError } from '@/lib/api/forms'
 import { locationsQuery } from '@/lib/api/reference'
@@ -125,6 +126,7 @@ export function NewReturnPage({ billId }: { billId: number }) {
       setAlert(formError(err, form.setError))
     }
   })
+  useShortcut('ctrl+enter', () => void onSubmit(), { allowInInputs: true })
 
   return (
     <div className="max-w-4xl">
@@ -275,7 +277,7 @@ function ReturnLines({
     )
 
   return (
-    <section className="overflow-x-auto rounded-lg border bg-surface">
+    <section tabIndex={0} className="overflow-x-auto rounded-lg border bg-surface">
       <table aria-label="Lines to return" className="w-full text-sm">
         <thead>
           <tr className="bg-surface-sunken text-left text-xs tracking-wide text-ink-muted uppercase">

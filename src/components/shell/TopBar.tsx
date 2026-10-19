@@ -26,7 +26,7 @@ export function TopBar({ phone, onSearch, onShowShortcuts }: Props) {
         <button
           type="button"
           onClick={onSearch}
-          className="flex h-8 w-full max-w-md items-center gap-2 rounded-md border border-rule bg-paper px-2.5 text-ink-faint hover:border-rule-strong"
+          className="flex h-8 w-full max-w-md items-center gap-2 rounded-md border border-rule bg-paper px-2.5 text-ink-muted hover:border-rule-strong"
         >
           <Search className="size-4" strokeWidth={1.75} aria-hidden />
           <span className="flex-1 text-left">Search items, parties, bills…</span>

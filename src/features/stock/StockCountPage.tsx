@@ -188,7 +188,11 @@ export function StockCountPage() {
       )}
 
       {result && (
-        <section aria-label="Differences" className="overflow-x-auto rounded-lg border bg-surface">
+        <section
+          aria-label="Differences"
+          tabIndex={0}
+          className="overflow-x-auto rounded-lg border bg-surface"
+        >
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-surface-sunken text-left text-xs tracking-wide text-ink-muted uppercase">

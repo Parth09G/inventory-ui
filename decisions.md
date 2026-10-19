@@ -43,6 +43,8 @@ Requirement IDs refer to `backend-api/Billing_Inventory_Requirements_HLD_v2.1.do
 | D-31 | Phone shell and entry layouts below 1024 px                              | Accepted                        |
 | D-32 | Playwright runs against a typed mock API                                 | Accepted                        |
 | D-33 | Own DataTable instead of TanStack Table v9                               | Accepted                        |
+| D-34 | Accessibility is checked by axe in Playwright                            | Accepted                        |
+| D-35 | Inputs get their label from a Field context                              | Accepted                        |
 
 ---
 
@@ -314,3 +316,19 @@ e2e/              Playwright specs (desktop + 360 px phone projects)
 - **Context:** Every register pages, sorts and totals on the server (D-18), so a table library would only render rows. TanStack Table v9 has a new store/atoms API that adds complexity for no gain here.
 - **Decision:** `components/shared/DataTable.tsx` takes typed column definitions (`header`, `cell`, `align`, `sortKey`, `footer`, `mobile` role). It provides a sticky header and first column, server sort through the URL, a column picker saved in localStorage, a totals row from server values, skeleton/empty/error states, and a card list below 1024 px (D-31). `@tanstack/react-table` was removed.
 - **Revisit:** If a screen needs client-side grouping or editing in a grid, use TanStack Table for that screen only. The LineGrid (D-30) is separate.
+
+### D-34 Accessibility is checked by axe in Playwright
+
+- **Decision:** `e2e/a11y.spec.ts` scans the sign-in page and the main screens (dashboard, bills, bill editor, bill view, inventory, item, party, settings, reports) with `@axe-core/playwright` against WCAG 2.2 AA, on desktop and at 360 px. It also asserts that no page scrolls sideways. A new violation fails the suite.
+- **What it found and changed:**
+  - `--ink-faint` went from #8A9098 to #60666E, and status text from #2E7D4F/#B26B00 to #23673F/#8A5300, so they reach 4.5:1 on their backgrounds.
+  - Filter tabs no longer point `aria-controls` at panels that do not exist.
+  - Inline links are underlined.
+  - Horizontally scrolling tables can be focused with the keyboard.
+  - The account menu is named by its visible text.
+- **Limits:** axe catches about a third of WCAG issues. Keyboard flows are covered by the e2e specs; a screen-reader pass by a person is still needed before go-live.
+
+### D-35 Inputs get their label from a Field context
+
+- **Context:** `<Field>` first labelled its input by cloning the child with an `id`. That silently failed for inputs wrapped in a react-hook-form `Controller` or a picker, so date, amount and picker fields had no accessible label.
+- **Decision:** `Field` provides `{id, describedBy, invalid}` through `FieldContext`. `Input`, `Textarea`, `NativeSelect`, `DecimalInput`, `DateInput`, the combobox and the file inputs read it with `useFieldControl`. Any new input component must do the same.

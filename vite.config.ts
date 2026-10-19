@@ -16,12 +16,26 @@ export default defineConfig({
     // App-shell caching only; billing still needs the network (HLD 6.3). See decisions.md D-12.
     VitePWA({
       registerType: 'prompt',
+      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
         name: 'Billing & Inventory',
         short_name: 'Billing',
+        description: 'Bills, stock and ledgers for the shop and godowns',
         lang: 'en-IN',
         display: 'standalone',
         start_url: '/',
+        background_color: '#f7f7f4',
+        theme_color: '#1c1f23',
+        icons: [
+          { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+          {
+            src: '/icon-maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
       },
       workbox: { navigateFallbackDenylist: [/^\/api\//] },
     }),

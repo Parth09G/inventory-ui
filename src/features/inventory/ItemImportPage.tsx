@@ -146,7 +146,7 @@ export function ItemImportPage() {
                   <Link
                     to="/inventory"
                     search={{ category_id: category?.id }}
-                    className="text-steel hover:underline"
+                    className="text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
                   >
                     Check the {category?.name} items
                   </Link>

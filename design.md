@@ -217,14 +217,14 @@ Use at most four sizes on a screen. Use weights 400, 500 and 600 only.
 | `--surface-sunken`                                | #EFEFEA                                     | Table header, read-only fields                                                                      |
 | `--ink`                                           | #1C1F23                                     | Text, primary button                                                                                |
 | `--ink-muted`                                     | #5B6169                                     | Secondary text, column headers                                                                      |
-| `--ink-faint`                                     | #8A9098                                     | Placeholders, disabled                                                                              |
+| `--ink-faint`                                     | #60666E                                     | Placeholders, de-emphasised zeros (raised from #8A9098 to pass 4.5:1)                               |
 | `--rule`                                          | #DEDDD6                                     | Hairlines, borders                                                                                  |
 | `--rule-strong`                                   | #C4C3BB                                     | Input borders                                                                                       |
 | `--steel`                                         | #2F5D8A (the blue of TMT steel; not indigo) | Focus ring, links, selection                                                                        |
 | `--steel-tint`                                    | `--steel` at 10%                            | Selected row                                                                                        |
 | `--cash`                                          | #1C1F23                                     | Cash-bill band and label                                                                            |
 | `--account`                                       | #0F6E6E (teal)                              | Account-bill band and label                                                                         |
-| `--success` / `--warning` / `--danger` / `--info` | #2E7D4F / #B26B00 / #B42318 / #2F5D8A       | Status only (each with a 10% `-tint`)                                                               |
+| `--success` / `--warning` / `--danger` / `--info` | #23673F / #8A5300 / #B42318 / #2F5D8A       | Status only (each with a tint; text on tint ≥ 4.5:1, checked with axe)                              |
 | `--chart-1`                                       | #2563A8                                     | Chart series (validated; steel failed the chroma floor). More slots only after the validator passes |
 
 The primary button is `ink`, not a brand hue. Run a contrast check on these values when the tokens are written into `src/styles/index.css`.

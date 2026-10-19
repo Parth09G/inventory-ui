@@ -95,7 +95,7 @@ export function PurchaseReturnPage() {
         }
       />
       <FormAlert message={alert} />
-      <section className="overflow-x-auto rounded-lg border bg-surface">
+      <section tabIndex={0} className="overflow-x-auto rounded-lg border bg-surface">
         <table aria-label="Lines to return" className="w-full text-sm">
           <thead>
             <tr className="bg-surface-sunken text-left text-xs tracking-wide text-ink-muted uppercase">

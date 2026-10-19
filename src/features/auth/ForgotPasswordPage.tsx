@@ -33,7 +33,10 @@ export function ForgotPasswordPage() {
           If an account exists for <strong>{sentTo}</strong>, we have sent a link to set a new
           password.
         </p>
-        <Link to="/login" className="text-sm text-steel underline-offset-4 hover:underline">
+        <Link
+          to="/login"
+          className="text-sm text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
+        >
           Back to sign in
         </Link>
       </div>
@@ -49,7 +52,10 @@ export function ForgotPasswordPage() {
       <Button type="submit" disabled={form.formState.isSubmitting}>
         Send link
       </Button>
-      <Link to="/login" className="text-sm text-steel underline-offset-4 hover:underline">
+      <Link
+        to="/login"
+        className="text-sm text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
+      >
         Back to sign in
       </Link>
     </form>

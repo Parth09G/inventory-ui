@@ -17,7 +17,10 @@ export function StatusPage({
       <h1 className="text-xl font-semibold">{title}</h1>
       {children}
       <p>
-        <Link to="/" className="text-steel underline-offset-4 hover:underline">
+        <Link
+          to="/"
+          className="text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
+        >
           Go to the dashboard
         </Link>
       </p>

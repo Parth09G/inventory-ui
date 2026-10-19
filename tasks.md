@@ -63,4 +63,4 @@ Playwright specs run against a mocked API (`e2e/support/`), with fixtures typed 
 
 ## M8 Polish
 
-- [ ] T8.1 PWA update prompt check, accessibility pass, keystroke audit, full e2e run
+- [x] T8.1 PWA update prompt check, accessibility pass, keystroke audit, full e2e run

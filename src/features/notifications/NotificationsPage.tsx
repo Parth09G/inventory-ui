@@ -109,7 +109,7 @@ export function NotificationsPage() {
                 {!n.is_read && (
                   <button
                     type="button"
-                    className="justify-self-start text-sm text-steel hover:underline"
+                    className="justify-self-start text-sm text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
                     onClick={() => markOne.mutate(n.id)}
                   >
                     Mark read

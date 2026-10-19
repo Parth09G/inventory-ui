@@ -73,7 +73,10 @@ export function LoginPage() {
       <Button type="submit" disabled={form.formState.isSubmitting} className="mt-1">
         {form.formState.isSubmitting ? 'Signing in…' : 'Sign in'}
       </Button>
-      <Link to="/forgot-password" className="text-sm text-steel underline-offset-4 hover:underline">
+      <Link
+        to="/forgot-password"
+        className="text-sm text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
+      >
         Forgot password?
       </Link>
       <p className="text-sm text-ink-muted">

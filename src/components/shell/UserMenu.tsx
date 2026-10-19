@@ -31,11 +31,15 @@ export function UserMenu({ onShowShortcuts }: { onShowShortcuts: () => void }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="gap-2 px-1.5" aria-label="Account menu">
-          <span className="grid size-6 place-items-center rounded-full bg-ink text-[11px] font-medium text-white">
+        <Button variant="ghost" className="gap-2 px-1.5">
+          <span
+            aria-hidden
+            className="grid size-6 place-items-center rounded-full bg-ink text-[11px] font-medium text-white"
+          >
             {initials}
           </span>
           <span className="hidden max-w-32 truncate lg:inline">{me.full_name}</span>
+          <span className="sr-only">Account menu</span>
           <ChevronDown className="size-3.5 text-ink-muted" />
         </Button>
       </DropdownMenuTrigger>

@@ -101,7 +101,7 @@ export function ReturnPage() {
               key="b"
               to="/bills/$id"
               params={{ id: cn.bill_id }}
-              className="code text-steel hover:underline"
+              className="code text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
             >
               {cn.bill_no}
             </Link>,
@@ -119,7 +119,7 @@ export function ReturnPage() {
         ]}
       />
 
-      <section className="overflow-x-auto rounded-lg border bg-surface">
+      <section tabIndex={0} className="overflow-x-auto rounded-lg border bg-surface">
         <table aria-label="Returned lines" className="w-full text-sm">
           <thead>
             <tr className="bg-surface-sunken text-left text-xs tracking-wide text-ink-muted uppercase">

@@ -138,7 +138,10 @@ export function DataTable<T>(props: Props<T>) {
           </DropdownMenu>
         </div>
       )}
-      <div className="max-h-[calc(100dvh-13rem)] overflow-auto rounded-lg border bg-surface">
+      <div
+        tabIndex={0}
+        className="max-h-[calc(100dvh-13rem)] overflow-auto rounded-lg border bg-surface"
+      >
         <table aria-label={label} className="w-full border-separate border-spacing-0 text-sm">
           <thead>
             <tr>

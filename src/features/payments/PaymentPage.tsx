@@ -101,7 +101,7 @@ export function PaymentPage() {
                   key="p"
                   to="/parties/$id"
                   params={{ id: p.party_id }}
-                  className="text-steel hover:underline"
+                  className="text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
                 >
                   {p.party_name}
                 </Link>
@@ -128,7 +128,7 @@ export function PaymentPage() {
                   <Link
                     to="/bills/$id"
                     params={{ id: a.ref_id }}
-                    className="code text-steel hover:underline"
+                    className="code text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
                   >
                     {a.ref_no}
                   </Link>

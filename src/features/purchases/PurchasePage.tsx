@@ -80,7 +80,7 @@ export function PurchasePage() {
               key="d"
               to="/parties/$id"
               params={{ id: p.supplier_id }}
-              className="text-steel hover:underline"
+              className="text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
             >
               {p.supplier_name}
             </Link>,
@@ -93,7 +93,7 @@ export function PurchasePage() {
         ]}
       />
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        <section className="min-w-0 overflow-x-auto rounded-lg border bg-surface">
+        <section tabIndex={0} className="min-w-0 overflow-x-auto rounded-lg border bg-surface">
           <table aria-label="Purchase lines" className="w-full text-sm">
             <thead>
               <tr className="bg-surface-sunken text-left text-xs tracking-wide text-ink-muted uppercase">

@@ -157,7 +157,7 @@ export function BillPage() {
                 <Link
                   to="/bills/$id"
                   params={{ id: b.source_bill.id }}
-                  className="code text-steel hover:underline"
+                  className="code text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
                 >
                   {b.source_bill.bill_no}
                 </Link>
@@ -169,7 +169,7 @@ export function BillPage() {
                 <Link
                   to="/bills/$id"
                   params={{ id: b.account_copy.id }}
-                  className="code text-steel hover:underline"
+                  className="code text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
                 >
                   {b.account_copy.bill_no}
                 </Link>
@@ -258,7 +258,7 @@ export function BillPage() {
             <Link
               to="/parties/$id"
               params={{ id: b.customer.party_id }}
-              className="font-medium text-steel hover:underline"
+              className="font-medium text-steel underline decoration-steel/40 underline-offset-2 hover:decoration-steel"
             >
               {b.customer.name}
             </Link>
@@ -462,7 +462,7 @@ function BillBody({ bill: b }: { bill: Bill }) {
   const t = b.totals
   return (
     <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_21rem]">
-      <div className="min-w-0 overflow-x-auto rounded-lg border bg-surface">
+      <div tabIndex={0} className="min-w-0 overflow-x-auto rounded-lg border bg-surface">
         <table aria-label="Bill lines" className="w-full text-sm">
           <thead>
             <tr className="bg-surface-sunken text-xs tracking-wide text-ink-muted uppercase">
