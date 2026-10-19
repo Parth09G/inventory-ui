@@ -45,6 +45,7 @@ Requirement IDs refer to `backend-api/Billing_Inventory_Requirements_HLD_v2.1.do
 | D-33 | Own DataTable instead of TanStack Table v9                               | Accepted                        |
 | D-34 | Accessibility is checked by axe in Playwright                            | Accepted                        |
 | D-35 | Inputs get their label from a Field context                              | Accepted                        |
+| D-36 | Demo mode with an in-browser mock API                                    | Accepted                        |
 
 ---
 
@@ -332,3 +333,14 @@ e2e/              Playwright specs (desktop + 360 px phone projects)
 
 - **Context:** `<Field>` first labelled its input by cloning the child with an `id`. That silently failed for inputs wrapped in a react-hook-form `Controller` or a picker, so date, amount and picker fields had no accessible label.
 - **Decision:** `Field` provides `{id, describedBy, invalid}` through `FieldContext`. `Input`, `Textarea`, `NativeSelect`, `DecimalInput`, `DateInput`, the combobox and the file inputs read it with `useFieldControl`. Any new input component must do the same.
+
+### D-36 Demo mode with an in-browser mock API
+
+- **Context:** The UI should be viewable and testable by hand without the Go API, Supabase or Docker.
+- **Decision:**
+  - `npm run demo` starts Vite in mode `demo` (`.env.demo`). `main.tsx` then starts MSW through its Vite plugin, before the app renders.
+  - Handlers in `src/mocks/handlers.ts` answer every endpoint the UI calls, including Supabase sign-in, from an in-memory store (`src/mocks/db.ts`). They follow the main server rules: stock goes down on Cash bills, a short line refuses the save, payments reduce balances, and an Admin's returns wait for approval.
+  - The store is kept in `localStorage` and has a reset button in the banner.
+  - Fixtures are shared with the Playwright mocks (`src/mocks/data.ts`, `calc.ts`), so both stay typed against `openapi.yaml`.
+- **Production safety:** The demo code is behind `import.meta.env.VITE_DEMO`, which is constant-false in a normal build. The build was checked to contain no demo code or worker.
+- **Side effect:** Each Vite mode has its own dependency cache (`node_modules/.vite-<mode>`), so dev, demo and the e2e server can run together.

@@ -10,7 +10,10 @@
     "skipLibCheck": true,
     "noEmit": true,
     "verbatimModuleSyntax": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "paths": {
+      "@/*": ["../src/*"]
+    }
   },
   "include": ["."]
 }

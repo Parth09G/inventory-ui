@@ -1,5 +1,6 @@
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import type { RouterContext } from '@/app/auth'
+import { DemoBanner } from '@/components/shell/DemoBanner'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { StatusPage } from '@/components/shared/StatusPage'
 import { Toaster } from '@/components/ui/sonner'
@@ -8,6 +9,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
     <TooltipProvider delayDuration={400}>
+      <DemoBanner />
       <Outlet />
       <Toaster position="bottom-right" />
     </TooltipProvider>

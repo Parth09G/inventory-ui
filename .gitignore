@@ -3,6 +3,7 @@
 .env.*
 !.env.example
 !.env.e2e
+!.env.demo
 
 # Build / deps
 node_modules/

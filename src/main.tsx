@@ -11,6 +11,9 @@ import '@/styles/index.css'
 
 applySavedDensity()
 
+// Demo mode: answer API and sign-in calls from an in-browser mock (src/mocks).
+if (import.meta.env.VITE_DEMO === 'true') await (await import('@/mocks/start')).startDemo()
+
 // A 401 on any call except /me (handled by the _app guard) means the session ended.
 setUnauthenticatedHandler((url) => {
   if (new URL(url).pathname.endsWith('/me')) return

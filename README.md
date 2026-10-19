@@ -18,10 +18,19 @@ npm run dev                  # http://localhost:5173
 
 The API must be running (see `backend-api/README.md`).
 
+### Demo mode (no backend needed)
+
+```bash
+npm run demo                 # http://localhost:5173
+```
+
+The app runs against an in-browser mock of the API and Supabase Auth (`src/mocks`, using MSW). Sign in as `owner@shop.test` (Super Admin) or `counter@shop.test` (Admin) with any password. Bills, payments, purchases and the rest work and change stock and balances. The data is kept in this browser; use **Reset demo data** in the top banner to start again. PDFs, Excel and Tally files open a placeholder page. None of this is in the production build.
+
 ## Scripts
 
 | Script                                  | What                                                                                                              |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `npm run demo`                          | The app with mock data, no backend (see above)                                                                    |
 | `npm run gen:api`                       | Regenerate `src/lib/api/schema.d.ts` from `../backend-api/openapi.yaml`                                           |
 | `npm run typecheck` · `lint` · `format` | Checks                                                                                                            |
 | `npm test`                              | Vitest unit/component tests                                                                                       |
