@@ -10,7 +10,7 @@ type Props = { phone: boolean; onSearch: () => void; onShowShortcuts: () => void
 export function TopBar({ phone, onSearch, onShowShortcuts }: Props) {
   const canBill = useCan('bill.create')
   return (
-    <header className="sticky top-0 z-30 flex h-12 items-center gap-2 border-b bg-surface px-2 sm:px-4">
+    <header className="sticky top-0 z-30 flex h-12 items-center gap-2 border-b bg-surface px-2 sm:px-4 print:hidden">
       {phone && <span className="px-2 text-sm font-semibold tracking-wide uppercase">Billing</span>}
       {phone ? (
         <Button

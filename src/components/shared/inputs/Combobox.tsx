@@ -2,6 +2,7 @@ import { Loader2 } from 'lucide-react'
 import { forwardRef, useId, useImperativeHandle, useRef, useState, type ReactNode } from 'react'
 import { Popover, PopoverAnchor, PopoverContent } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
+import { useFieldControl } from '../field-context'
 
 export type ComboboxExtra = { key: string; label: ReactNode; onSelect: () => void }
 
@@ -9,6 +10,7 @@ type Props<T> = {
   id?: string
   'aria-label'?: string
   'aria-invalid'?: boolean
+  'aria-describedby'?: string
   /** Text shown while not searching (the current selection). */
   selectedLabel: string
   query: string
@@ -33,7 +35,8 @@ type Props<T> = {
  * Enter to choose, Esc to close, F4 to open. Enter on a choice is consumed here so a
  * surrounding grid does not also move (design §7).
  */
-function ComboboxInner<T>(p: Props<T>, ref: React.ForwardedRef<HTMLInputElement>) {
+function ComboboxInner<T>(props: Props<T>, ref: React.ForwardedRef<HTMLInputElement>) {
+  const p = useFieldControl(props)
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
   const input = useRef<HTMLInputElement>(null)
@@ -57,6 +60,7 @@ function ComboboxInner<T>(p: Props<T>, ref: React.ForwardedRef<HTMLInputElement>
         <input
           ref={input}
           id={p.id}
+          aria-describedby={p['aria-describedby']}
           role="combobox"
           aria-label={p['aria-label']}
           aria-invalid={p['aria-invalid'] || undefined}

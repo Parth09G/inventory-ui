@@ -18,6 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { NativeSelect } from '@/components/shared/inputs/NativeSelect'
 import { Input } from '@/components/ui/input'
 import { formError } from '@/lib/api/forms'
 import { unitsQuery } from '@/lib/api/reference'
@@ -177,16 +178,13 @@ export function UnitDialog({ unit, onClose }: { unit?: Unit; onClose: (saved?: U
             error={errors.decimals?.message}
             hint="0 for bags and pieces; 3 for kg and tonnes"
           >
-            <select
-              className="h-(--control-h) rounded-md border border-input bg-surface px-2"
-              {...form.register('decimals')}
-            >
+            <NativeSelect {...form.register('decimals')}>
               {[0, 1, 2, 3].map((d) => (
                 <option key={d} value={d}>
                   {d}
                 </option>
               ))}
-            </select>
+            </NativeSelect>
           </Field>
         </form>
         <DialogFooter>

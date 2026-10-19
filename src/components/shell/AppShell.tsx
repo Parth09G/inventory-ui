@@ -40,6 +40,11 @@ export function AppShell() {
     allowInInputs: true,
     enabled: canBill,
   })
+  const canPurchase = useCan('purchase.create')
+  useShortcut('alt+p', () => void navigate({ to: '/purchases/new' }), {
+    allowInInputs: true,
+    enabled: canPurchase,
+  })
   const canPay = useCan('payment.create')
   useShortcut(
     'alt+r',
@@ -63,7 +68,11 @@ export function AppShell() {
 
   return (
     <div className="flex min-h-dvh">
-      {!phone && <Sidebar collapsed={collapsed} onToggle={toggle} />}
+      {!phone && (
+        <div className="print:hidden">
+          <Sidebar collapsed={collapsed} onToggle={toggle} />
+        </div>
+      )}
       <div className="flex min-w-0 flex-1 flex-col">
         <OfflineBanner />
         <TopBar
@@ -71,11 +80,18 @@ export function AppShell() {
           onSearch={() => setPaletteOpen(true)}
           onShowShortcuts={() => setHelpOpen(true)}
         />
-        <main id="main" className={phone ? 'flex-1 px-4 pt-4 pb-24' : 'flex-1 px-6 py-5'}>
+        <main
+          id="main"
+          className={phone ? 'flex-1 px-4 pt-4 pb-24 print:p-0' : 'flex-1 px-6 py-5 print:p-0'}
+        >
           <Outlet />
         </main>
       </div>
-      {phone && <BottomNav />}
+      {phone && (
+        <div className="print:hidden">
+          <BottomNav />
+        </div>
+      )}
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       <ShortcutsHelp open={helpOpen} onOpenChange={setHelpOpen} />
       <UpdatePrompt />

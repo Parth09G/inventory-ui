@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import { AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { qty } from '@/lib/format'
@@ -45,6 +46,22 @@ export function ShortagePanel({
                     Take from {o.location_name} ({qty(o.qty)} {short.unit})
                   </Button>
                 ))}
+                {short.available_elsewhere[0] && (
+                  <Button size="sm" variant="ghost" asChild>
+                    {/* A new tab keeps this bill as it is (its draft is also kept on this device). */}
+                    <Link
+                      to="/transfers/new"
+                      search={{
+                        item: short.item_id,
+                        from: short.available_elsewhere[0].location_id,
+                        to: short.location_id,
+                      }}
+                      target="_blank"
+                    >
+                      Create transfer
+                    </Link>
+                  </Button>
+                )}
               </div>
             )}
           </li>

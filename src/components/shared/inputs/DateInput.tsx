@@ -2,6 +2,7 @@ import { CalendarDays } from 'lucide-react'
 import { forwardRef, useRef, useState, type ComponentProps } from 'react'
 import { formatDateInput, parseDateInput } from '@/lib/dates'
 import { cn } from '@/lib/utils'
+import { useFieldControl } from '../field-context'
 
 type Props = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'type'> & {
   /** ISO date "YYYY-MM-DD", or '' when empty. */
@@ -15,9 +16,10 @@ type Props = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'type'> & {
  * The calendar button opens the native picker for mouse and touch users.
  */
 export const DateInput = forwardRef<HTMLInputElement, Props>(function DateInput(
-  { value, onChange, className, onBlur, ...props },
+  { value, onChange, className, onBlur, ...rest },
   ref,
 ) {
+  const props = useFieldControl(rest)
   const [text, setText] = useState(formatDateInput(value))
   const [invalid, setInvalid] = useState(false)
   const picker = useRef<HTMLInputElement>(null)

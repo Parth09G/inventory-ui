@@ -10,6 +10,7 @@ import { PageHeader } from '@/components/shared/PageHeader'
 import { Button } from '@/components/ui/button'
 import { categoriesQuery } from '@/features/catalogue/api'
 import { useJob, type Job } from '@/hooks/useJob'
+import { useFieldControl } from '@/components/shared/field-context'
 import { api, call } from '@/lib/api/client'
 import { problemMessage } from '@/lib/api/problem'
 import { saveBlob } from '@/lib/download'
@@ -110,8 +111,7 @@ export function ItemImportPage() {
           <h2 className="font-semibold">2. Upload the filled template</h2>
           <FormAlert message={alert} />
           <Field label="Excel file (.xlsx)">
-            <input
-              type="file"
+            <FileInput
               accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
               onChange={(e) => {
                 setFile(e.target.files?.[0] ?? null)
@@ -158,4 +158,9 @@ export function ItemImportPage() {
       </ol>
     </div>
   )
+}
+
+/** File chooser labelled by its Field. */
+function FileInput(props: React.ComponentProps<'input'>) {
+  return <input type="file" {...useFieldControl(props)} />
 }

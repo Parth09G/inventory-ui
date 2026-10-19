@@ -1,11 +1,14 @@
 import type { LinkProps } from '@tanstack/react-router'
 import {
+  ArrowLeftRight,
   Boxes,
   FolderTree,
   IndianRupee,
   LayoutDashboard,
   ReceiptText,
   Ruler,
+  SlidersHorizontal,
+  Truck,
   Undo2,
   Users,
   type LucideIcon,
@@ -37,6 +40,9 @@ export const NAV: NavGroup[] = [
     label: 'Stock',
     items: [
       { to: '/inventory', label: 'Inventory', icon: Boxes, phone: true },
+      { to: '/purchases', label: 'Purchases', icon: Truck },
+      { to: '/transfers', label: 'Transfers', icon: ArrowLeftRight },
+      { to: '/adjustments', label: 'Adjustments', icon: SlidersHorizontal },
       { to: '/catalogue/categories', label: 'Categories', icon: FolderTree },
       { to: '/catalogue/units', label: 'Units', icon: Ruler },
     ],

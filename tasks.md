@@ -43,10 +43,10 @@ Playwright specs run against a mocked API (`e2e/support/`), with fixtures typed 
 
 ## M5 Purchases and stock operations
 
-- [ ] T5.1 Purchases register (#23), entry (#24), view (#25), purchase return (#26)
-- [ ] T5.2 Transfers (#27–29)
-- [ ] T5.3 Adjustments (#30, #31)
-- [ ] T5.4 Physical count (#32)
+- [x] T5.1 Purchases register (#23), entry (#24), view (#25), purchase return (#26)
+- [x] T5.2 Transfers (#27–29)
+- [x] T5.3 Adjustments (#30, #31)
+- [x] T5.4 Physical count (#32)
 
 ## M6 Dashboard, notifications, reports
 

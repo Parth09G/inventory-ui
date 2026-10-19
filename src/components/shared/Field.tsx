@@ -1,15 +1,15 @@
-import { useId, type ReactElement, type ReactNode } from 'react'
-import { cloneElement } from 'react'
+import { useId, type ReactNode } from 'react'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
+import { FieldContext } from './field-context'
 
 type Props = {
   label: ReactNode
   error?: string
   hint?: ReactNode
   className?: string
-  /** A single input element; it gets the id and aria attributes. */
-  children: ReactElement<Record<string, unknown>>
+  /** One input; it is labelled through FieldContext, however deeply it is wrapped. */
+  children: ReactNode
 }
 
 /** Label + input + hint/error, wired for accessibility (design P11). */
@@ -21,11 +21,11 @@ export function Field({ label, error, hint, className, children }: Props) {
       <Label htmlFor={id} className="text-sm font-medium text-ink">
         {label}
       </Label>
-      {cloneElement(children, {
-        id,
-        'aria-invalid': error ? true : undefined,
-        'aria-describedby': error || hint ? descId : undefined,
-      })}
+      <FieldContext.Provider
+        value={{ id, describedBy: error || hint ? descId : undefined, invalid: !!error }}
+      >
+        {children}
+      </FieldContext.Provider>
       {error ? (
         <p id={descId} className="text-sm text-danger">
           {error}

@@ -1,5 +1,6 @@
 import { forwardRef, type ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
+import { useFieldControl } from '../field-context'
 
 type Props = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'type'> & {
   value: string
@@ -13,9 +14,10 @@ type Props = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'type'> & {
  * make it invalid are ignored, so the value is always a decimal string or ''.
  */
 export const DecimalInput = forwardRef<HTMLInputElement, Props>(function DecimalInput(
-  { value, onChange, decimals, className, ...props },
+  { value, onChange, decimals, className, ...rest },
   ref,
 ) {
+  const props = useFieldControl(rest)
   const pattern = decimals > 0 ? new RegExp(`^\\d*(\\.\\d{0,${decimals}})?$`) : /^\d*$/
   return (
     <input
