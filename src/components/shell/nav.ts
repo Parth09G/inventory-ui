@@ -2,6 +2,10 @@ import type { LinkProps } from '@tanstack/react-router'
 import {
   ArrowLeftRight,
   BarChart3,
+  FileClock,
+  FileSpreadsheet,
+  Settings,
+  UserCog,
   Boxes,
   FolderTree,
   IndianRupee,
@@ -52,5 +56,14 @@ export const NAV: NavGroup[] = [
   {
     label: 'Reports',
     items: [{ to: '/reports', label: 'Reports', icon: BarChart3, perm: 'reports.view' }],
+  },
+  {
+    label: 'Admin',
+    items: [
+      { to: '/settings', label: 'Settings', icon: Settings },
+      { to: '/users', label: 'Users', icon: UserCog, perm: 'user.manage' },
+      { to: '/tally', label: 'Tally', icon: FileSpreadsheet, perm: 'tally.export' },
+      { to: '/audit-log', label: 'Audit log', icon: FileClock, perm: 'audit.view' },
+    ],
   },
 ]

@@ -50,7 +50,6 @@ test.describe('dashboard (#4)', () => {
     await expect
       .poll(() => mock.calls('GET', '/dashboard/sales-trend').at(-1)?.query.get('bucket'))
       .toBe('month')
-    await expect(page.getByText('Admin', { exact: true })).toHaveCount(0)
     await expect(page.getByRole('region', { name: 'Pending work' })).toContainText(
       '2 returns awaiting approval',
     )

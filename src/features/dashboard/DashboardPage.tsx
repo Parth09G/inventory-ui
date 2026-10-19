@@ -201,7 +201,7 @@ function PendingStrip({ counts }: { counts: Record<string, number | undefined> |
     {
       n: counts.tally_unexported,
       label: 'documents not yet in Tally',
-      to: { to: '/' },
+      to: { to: '/tally' },
       tone: 'warning',
     },
   ]

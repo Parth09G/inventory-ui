@@ -56,10 +56,10 @@ Playwright specs run against a mocked API (`e2e/support/`), with fixtures typed 
 
 ## M7 Admin
 
-- [ ] T7.1 Settings (#38) incl. locations
-- [ ] T7.2 Users (#39)
-- [ ] T7.3 Tally (#40)
-- [ ] T7.4 Audit log (#41)
+- [x] T7.1 Settings (#38) incl. locations
+- [x] T7.2 Users (#39)
+- [x] T7.3 Tally (#40)
+- [x] T7.4 Audit log (#41)
 
 ## M8 Polish
 

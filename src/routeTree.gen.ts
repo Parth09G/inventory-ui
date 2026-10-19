@@ -12,8 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppAuditLogRouteImport } from './routes/_app/audit-log'
 import { Route as AppNoAccessRouteImport } from './routes/_app/no-access'
 import { Route as AppNotificationsRouteImport } from './routes/_app/notifications'
+import { Route as AppTallyRouteImport } from './routes/_app/tally'
+import { Route as AppUsersRouteImport } from './routes/_app/users'
 import { Route as PublicForgotPasswordRouteImport } from './routes/_public/forgot-password'
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as PublicSetPasswordRouteImport } from './routes/_public/set-password'
@@ -37,6 +40,8 @@ import { Route as AppReportsKeyRouteImport } from './routes/_app/reports/$key'
 import { Route as AppReturnsIndexRouteImport } from './routes/_app/returns/index'
 import { Route as AppReturnsIdRouteImport } from './routes/_app/returns/$id'
 import { Route as AppReturnsNewRouteImport } from './routes/_app/returns/new'
+import { Route as AppSettingsIndexRouteImport } from './routes/_app/settings/index'
+import { Route as AppSettingsSectionRouteImport } from './routes/_app/settings/$section'
 import { Route as AppStockCountsNewRouteImport } from './routes/_app/stock-counts/new'
 import { Route as AppTransfersIndexRouteImport } from './routes/_app/transfers/index'
 import { Route as AppTransfersIdRouteImport } from './routes/_app/transfers/$id'
@@ -66,6 +71,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAuditLogRoute = AppAuditLogRouteImport.update({
+  id: '/audit-log',
+  path: '/audit-log',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppNoAccessRoute = AppNoAccessRouteImport.update({
   id: '/no-access',
   path: '/no-access',
@@ -74,6 +84,16 @@ const AppNoAccessRoute = AppNoAccessRouteImport.update({
 const AppNotificationsRoute = AppNotificationsRouteImport.update({
   id: '/notifications',
   path: '/notifications',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTallyRoute = AppTallyRouteImport.update({
+  id: '/tally',
+  path: '/tally',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppUsersRoute = AppUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
   getParentRoute: () => AppRoute,
 } as any)
 const PublicForgotPasswordRoute = PublicForgotPasswordRouteImport.update({
@@ -191,6 +211,16 @@ const AppReturnsNewRoute = AppReturnsNewRouteImport.update({
   path: '/returns/new',
   getParentRoute: () => AppRoute,
 } as any)
+const AppSettingsIndexRoute = AppSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsSectionRoute = AppSettingsSectionRouteImport.update({
+  id: '/settings/$section',
+  path: '/settings/$section',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppStockCountsNewRoute = AppStockCountsNewRouteImport.update({
   id: '/stock-counts/new',
   path: '/stock-counts/new',
@@ -272,8 +302,11 @@ const AppPurchasesIdReturnRoute = AppPurchasesIdReturnRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
+  '/audit-log': typeof AppAuditLogRoute
   '/no-access': typeof AppNoAccessRoute
   '/notifications': typeof AppNotificationsRoute
+  '/tally': typeof AppTallyRoute
+  '/users': typeof AppUsersRoute
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
@@ -289,6 +322,7 @@ export interface FileRoutesByFullPath {
   '/reports/$key': typeof AppReportsKeyRoute
   '/returns/$id': typeof AppReturnsIdRoute
   '/returns/new': typeof AppReturnsNewRoute
+  '/settings/$section': typeof AppSettingsSectionRoute
   '/stock-counts/new': typeof AppStockCountsNewRoute
   '/transfers/$id': typeof AppTransfersIdRoute
   '/transfers/new': typeof AppTransfersNewRoute
@@ -300,6 +334,7 @@ export interface FileRoutesByFullPath {
   '/purchases/': typeof AppPurchasesIndexRoute
   '/reports/': typeof AppReportsIndexRoute
   '/returns/': typeof AppReturnsIndexRoute
+  '/settings/': typeof AppSettingsIndexRoute
   '/transfers/': typeof AppTransfersIndexRoute
   '/bills/$id/edit': typeof AppBillsIdEditRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
@@ -315,8 +350,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
+  '/audit-log': typeof AppAuditLogRoute
   '/no-access': typeof AppNoAccessRoute
   '/notifications': typeof AppNotificationsRoute
+  '/tally': typeof AppTallyRoute
+  '/users': typeof AppUsersRoute
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
@@ -332,6 +370,7 @@ export interface FileRoutesByTo {
   '/reports/$key': typeof AppReportsKeyRoute
   '/returns/$id': typeof AppReturnsIdRoute
   '/returns/new': typeof AppReturnsNewRoute
+  '/settings/$section': typeof AppSettingsSectionRoute
   '/stock-counts/new': typeof AppStockCountsNewRoute
   '/transfers/$id': typeof AppTransfersIdRoute
   '/transfers/new': typeof AppTransfersNewRoute
@@ -343,6 +382,7 @@ export interface FileRoutesByTo {
   '/purchases': typeof AppPurchasesIndexRoute
   '/reports': typeof AppReportsIndexRoute
   '/returns': typeof AppReturnsIndexRoute
+  '/settings': typeof AppSettingsIndexRoute
   '/transfers': typeof AppTransfersIndexRoute
   '/bills/$id/edit': typeof AppBillsIdEditRoute
   '/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
@@ -360,8 +400,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
+  '/_app/audit-log': typeof AppAuditLogRoute
   '/_app/no-access': typeof AppNoAccessRoute
   '/_app/notifications': typeof AppNotificationsRoute
+  '/_app/tally': typeof AppTallyRoute
+  '/_app/users': typeof AppUsersRoute
   '/_public/forgot-password': typeof PublicForgotPasswordRoute
   '/_public/login': typeof PublicLoginRoute
   '/_public/set-password': typeof PublicSetPasswordRoute
@@ -378,6 +421,7 @@ export interface FileRoutesById {
   '/_app/reports/$key': typeof AppReportsKeyRoute
   '/_app/returns/$id': typeof AppReturnsIdRoute
   '/_app/returns/new': typeof AppReturnsNewRoute
+  '/_app/settings/$section': typeof AppSettingsSectionRoute
   '/_app/stock-counts/new': typeof AppStockCountsNewRoute
   '/_app/transfers/$id': typeof AppTransfersIdRoute
   '/_app/transfers/new': typeof AppTransfersNewRoute
@@ -389,6 +433,7 @@ export interface FileRoutesById {
   '/_app/purchases/': typeof AppPurchasesIndexRoute
   '/_app/reports/': typeof AppReportsIndexRoute
   '/_app/returns/': typeof AppReturnsIndexRoute
+  '/_app/settings/': typeof AppSettingsIndexRoute
   '/_app/transfers/': typeof AppTransfersIndexRoute
   '/_app/bills/$id/edit': typeof AppBillsIdEditRoute
   '/_app/catalogue/categories/$id': typeof AppCatalogueCategoriesIdRoute
@@ -406,8 +451,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/audit-log'
     | '/no-access'
     | '/notifications'
+    | '/tally'
+    | '/users'
     | '/forgot-password'
     | '/login'
     | '/set-password'
@@ -423,6 +471,7 @@ export interface FileRouteTypes {
     | '/reports/$key'
     | '/returns/$id'
     | '/returns/new'
+    | '/settings/$section'
     | '/stock-counts/new'
     | '/transfers/$id'
     | '/transfers/new'
@@ -434,6 +483,7 @@ export interface FileRouteTypes {
     | '/purchases/'
     | '/reports/'
     | '/returns/'
+    | '/settings/'
     | '/transfers/'
     | '/bills/$id/edit'
     | '/catalogue/categories/$id'
@@ -449,8 +499,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/audit-log'
     | '/no-access'
     | '/notifications'
+    | '/tally'
+    | '/users'
     | '/forgot-password'
     | '/login'
     | '/set-password'
@@ -466,6 +519,7 @@ export interface FileRouteTypes {
     | '/reports/$key'
     | '/returns/$id'
     | '/returns/new'
+    | '/settings/$section'
     | '/stock-counts/new'
     | '/transfers/$id'
     | '/transfers/new'
@@ -477,6 +531,7 @@ export interface FileRouteTypes {
     | '/purchases'
     | '/reports'
     | '/returns'
+    | '/settings'
     | '/transfers'
     | '/bills/$id/edit'
     | '/catalogue/categories/$id'
@@ -493,8 +548,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_app'
     | '/_public'
+    | '/_app/audit-log'
     | '/_app/no-access'
     | '/_app/notifications'
+    | '/_app/tally'
+    | '/_app/users'
     | '/_public/forgot-password'
     | '/_public/login'
     | '/_public/set-password'
@@ -511,6 +569,7 @@ export interface FileRouteTypes {
     | '/_app/reports/$key'
     | '/_app/returns/$id'
     | '/_app/returns/new'
+    | '/_app/settings/$section'
     | '/_app/stock-counts/new'
     | '/_app/transfers/$id'
     | '/_app/transfers/new'
@@ -522,6 +581,7 @@ export interface FileRouteTypes {
     | '/_app/purchases/'
     | '/_app/reports/'
     | '/_app/returns/'
+    | '/_app/settings/'
     | '/_app/transfers/'
     | '/_app/bills/$id/edit'
     | '/_app/catalogue/categories/$id'
@@ -564,6 +624,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/audit-log': {
+      id: '/_app/audit-log'
+      path: '/audit-log'
+      fullPath: '/audit-log'
+      preLoaderRoute: typeof AppAuditLogRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/no-access': {
       id: '/_app/no-access'
       path: '/no-access'
@@ -576,6 +643,20 @@ declare module '@tanstack/react-router' {
       path: '/notifications'
       fullPath: '/notifications'
       preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/tally': {
+      id: '/_app/tally'
+      path: '/tally'
+      fullPath: '/tally'
+      preLoaderRoute: typeof AppTallyRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/users': {
+      id: '/_app/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof AppUsersRouteImport
       parentRoute: typeof AppRoute
     }
     '/_public/forgot-password': {
@@ -739,6 +820,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppReturnsNewRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/settings/': {
+      id: '/_app/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof AppSettingsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings/$section': {
+      id: '/_app/settings/$section'
+      path: '/settings/$section'
+      fullPath: '/settings/$section'
+      preLoaderRoute: typeof AppSettingsSectionRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/stock-counts/new': {
       id: '/_app/stock-counts/new'
       path: '/stock-counts/new'
@@ -848,8 +943,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppAuditLogRoute: typeof AppAuditLogRoute
   AppNoAccessRoute: typeof AppNoAccessRoute
   AppNotificationsRoute: typeof AppNotificationsRoute
+  AppTallyRoute: typeof AppTallyRoute
+  AppUsersRoute: typeof AppUsersRoute
   AppIndexRoute: typeof AppIndexRoute
   AppAdjustmentsNewRoute: typeof AppAdjustmentsNewRoute
   AppBillsNewRoute: typeof AppBillsNewRoute
@@ -863,6 +961,7 @@ interface AppRouteChildren {
   AppReportsKeyRoute: typeof AppReportsKeyRoute
   AppReturnsIdRoute: typeof AppReturnsIdRoute
   AppReturnsNewRoute: typeof AppReturnsNewRoute
+  AppSettingsSectionRoute: typeof AppSettingsSectionRoute
   AppStockCountsNewRoute: typeof AppStockCountsNewRoute
   AppTransfersIdRoute: typeof AppTransfersIdRoute
   AppTransfersNewRoute: typeof AppTransfersNewRoute
@@ -874,6 +973,7 @@ interface AppRouteChildren {
   AppPurchasesIndexRoute: typeof AppPurchasesIndexRoute
   AppReportsIndexRoute: typeof AppReportsIndexRoute
   AppReturnsIndexRoute: typeof AppReturnsIndexRoute
+  AppSettingsIndexRoute: typeof AppSettingsIndexRoute
   AppTransfersIndexRoute: typeof AppTransfersIndexRoute
   AppBillsIdEditRoute: typeof AppBillsIdEditRoute
   AppCatalogueCategoriesIdRoute: typeof AppCatalogueCategoriesIdRoute
@@ -889,8 +989,11 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAuditLogRoute: AppAuditLogRoute,
   AppNoAccessRoute: AppNoAccessRoute,
   AppNotificationsRoute: AppNotificationsRoute,
+  AppTallyRoute: AppTallyRoute,
+  AppUsersRoute: AppUsersRoute,
   AppIndexRoute: AppIndexRoute,
   AppAdjustmentsNewRoute: AppAdjustmentsNewRoute,
   AppBillsNewRoute: AppBillsNewRoute,
@@ -904,6 +1007,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppReportsKeyRoute: AppReportsKeyRoute,
   AppReturnsIdRoute: AppReturnsIdRoute,
   AppReturnsNewRoute: AppReturnsNewRoute,
+  AppSettingsSectionRoute: AppSettingsSectionRoute,
   AppStockCountsNewRoute: AppStockCountsNewRoute,
   AppTransfersIdRoute: AppTransfersIdRoute,
   AppTransfersNewRoute: AppTransfersNewRoute,
@@ -915,6 +1019,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppPurchasesIndexRoute: AppPurchasesIndexRoute,
   AppReportsIndexRoute: AppReportsIndexRoute,
   AppReturnsIndexRoute: AppReturnsIndexRoute,
+  AppSettingsIndexRoute: AppSettingsIndexRoute,
   AppTransfersIndexRoute: AppTransfersIndexRoute,
   AppBillsIdEditRoute: AppBillsIdEditRoute,
   AppCatalogueCategoriesIdRoute: AppCatalogueCategoriesIdRoute,
