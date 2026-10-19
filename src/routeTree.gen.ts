@@ -13,6 +13,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AppNoAccessRouteImport } from './routes/_app/no-access'
+import { Route as AppNotificationsRouteImport } from './routes/_app/notifications'
 import { Route as PublicForgotPasswordRouteImport } from './routes/_public/forgot-password'
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as PublicSetPasswordRouteImport } from './routes/_public/set-password'
@@ -31,6 +32,8 @@ import { Route as AppPaymentsIdRouteImport } from './routes/_app/payments/$id'
 import { Route as AppPaymentsNewRouteImport } from './routes/_app/payments/new'
 import { Route as AppPurchasesIndexRouteImport } from './routes/_app/purchases/index'
 import { Route as AppPurchasesNewRouteImport } from './routes/_app/purchases/new'
+import { Route as AppReportsIndexRouteImport } from './routes/_app/reports/index'
+import { Route as AppReportsKeyRouteImport } from './routes/_app/reports/$key'
 import { Route as AppReturnsIndexRouteImport } from './routes/_app/returns/index'
 import { Route as AppReturnsIdRouteImport } from './routes/_app/returns/$id'
 import { Route as AppReturnsNewRouteImport } from './routes/_app/returns/new'
@@ -66,6 +69,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
 const AppNoAccessRoute = AppNoAccessRouteImport.update({
   id: '/no-access',
   path: '/no-access',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => AppRoute,
 } as any)
 const PublicForgotPasswordRoute = PublicForgotPasswordRouteImport.update({
@@ -156,6 +164,16 @@ const AppPurchasesIndexRoute = AppPurchasesIndexRouteImport.update({
 const AppPurchasesNewRoute = AppPurchasesNewRouteImport.update({
   id: '/purchases/new',
   path: '/purchases/new',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReportsIndexRoute = AppReportsIndexRouteImport.update({
+  id: '/reports/',
+  path: '/reports/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReportsKeyRoute = AppReportsKeyRouteImport.update({
+  id: '/reports/$key',
+  path: '/reports/$key',
   getParentRoute: () => AppRoute,
 } as any)
 const AppReturnsIndexRoute = AppReturnsIndexRouteImport.update({
@@ -255,6 +273,7 @@ const AppPurchasesIdReturnRoute = AppPurchasesIdReturnRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/no-access': typeof AppNoAccessRoute
+  '/notifications': typeof AppNotificationsRoute
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
@@ -267,6 +286,7 @@ export interface FileRoutesByFullPath {
   '/payments/$id': typeof AppPaymentsIdRoute
   '/payments/new': typeof AppPaymentsNewRoute
   '/purchases/new': typeof AppPurchasesNewRoute
+  '/reports/$key': typeof AppReportsKeyRoute
   '/returns/$id': typeof AppReturnsIdRoute
   '/returns/new': typeof AppReturnsNewRoute
   '/stock-counts/new': typeof AppStockCountsNewRoute
@@ -278,6 +298,7 @@ export interface FileRoutesByFullPath {
   '/parties/': typeof AppPartiesIndexRoute
   '/payments/': typeof AppPaymentsIndexRoute
   '/purchases/': typeof AppPurchasesIndexRoute
+  '/reports/': typeof AppReportsIndexRoute
   '/returns/': typeof AppReturnsIndexRoute
   '/transfers/': typeof AppTransfersIndexRoute
   '/bills/$id/edit': typeof AppBillsIdEditRoute
@@ -295,6 +316,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
   '/no-access': typeof AppNoAccessRoute
+  '/notifications': typeof AppNotificationsRoute
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/set-password': typeof PublicSetPasswordRoute
@@ -307,6 +329,7 @@ export interface FileRoutesByTo {
   '/payments/$id': typeof AppPaymentsIdRoute
   '/payments/new': typeof AppPaymentsNewRoute
   '/purchases/new': typeof AppPurchasesNewRoute
+  '/reports/$key': typeof AppReportsKeyRoute
   '/returns/$id': typeof AppReturnsIdRoute
   '/returns/new': typeof AppReturnsNewRoute
   '/stock-counts/new': typeof AppStockCountsNewRoute
@@ -318,6 +341,7 @@ export interface FileRoutesByTo {
   '/parties': typeof AppPartiesIndexRoute
   '/payments': typeof AppPaymentsIndexRoute
   '/purchases': typeof AppPurchasesIndexRoute
+  '/reports': typeof AppReportsIndexRoute
   '/returns': typeof AppReturnsIndexRoute
   '/transfers': typeof AppTransfersIndexRoute
   '/bills/$id/edit': typeof AppBillsIdEditRoute
@@ -337,6 +361,7 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
   '/_app/no-access': typeof AppNoAccessRoute
+  '/_app/notifications': typeof AppNotificationsRoute
   '/_public/forgot-password': typeof PublicForgotPasswordRoute
   '/_public/login': typeof PublicLoginRoute
   '/_public/set-password': typeof PublicSetPasswordRoute
@@ -350,6 +375,7 @@ export interface FileRoutesById {
   '/_app/payments/$id': typeof AppPaymentsIdRoute
   '/_app/payments/new': typeof AppPaymentsNewRoute
   '/_app/purchases/new': typeof AppPurchasesNewRoute
+  '/_app/reports/$key': typeof AppReportsKeyRoute
   '/_app/returns/$id': typeof AppReturnsIdRoute
   '/_app/returns/new': typeof AppReturnsNewRoute
   '/_app/stock-counts/new': typeof AppStockCountsNewRoute
@@ -361,6 +387,7 @@ export interface FileRoutesById {
   '/_app/parties/': typeof AppPartiesIndexRoute
   '/_app/payments/': typeof AppPaymentsIndexRoute
   '/_app/purchases/': typeof AppPurchasesIndexRoute
+  '/_app/reports/': typeof AppReportsIndexRoute
   '/_app/returns/': typeof AppReturnsIndexRoute
   '/_app/transfers/': typeof AppTransfersIndexRoute
   '/_app/bills/$id/edit': typeof AppBillsIdEditRoute
@@ -380,6 +407,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/no-access'
+    | '/notifications'
     | '/forgot-password'
     | '/login'
     | '/set-password'
@@ -392,6 +420,7 @@ export interface FileRouteTypes {
     | '/payments/$id'
     | '/payments/new'
     | '/purchases/new'
+    | '/reports/$key'
     | '/returns/$id'
     | '/returns/new'
     | '/stock-counts/new'
@@ -403,6 +432,7 @@ export interface FileRouteTypes {
     | '/parties/'
     | '/payments/'
     | '/purchases/'
+    | '/reports/'
     | '/returns/'
     | '/transfers/'
     | '/bills/$id/edit'
@@ -420,6 +450,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/no-access'
+    | '/notifications'
     | '/forgot-password'
     | '/login'
     | '/set-password'
@@ -432,6 +463,7 @@ export interface FileRouteTypes {
     | '/payments/$id'
     | '/payments/new'
     | '/purchases/new'
+    | '/reports/$key'
     | '/returns/$id'
     | '/returns/new'
     | '/stock-counts/new'
@@ -443,6 +475,7 @@ export interface FileRouteTypes {
     | '/parties'
     | '/payments'
     | '/purchases'
+    | '/reports'
     | '/returns'
     | '/transfers'
     | '/bills/$id/edit'
@@ -461,6 +494,7 @@ export interface FileRouteTypes {
     | '/_app'
     | '/_public'
     | '/_app/no-access'
+    | '/_app/notifications'
     | '/_public/forgot-password'
     | '/_public/login'
     | '/_public/set-password'
@@ -474,6 +508,7 @@ export interface FileRouteTypes {
     | '/_app/payments/$id'
     | '/_app/payments/new'
     | '/_app/purchases/new'
+    | '/_app/reports/$key'
     | '/_app/returns/$id'
     | '/_app/returns/new'
     | '/_app/stock-counts/new'
@@ -485,6 +520,7 @@ export interface FileRouteTypes {
     | '/_app/parties/'
     | '/_app/payments/'
     | '/_app/purchases/'
+    | '/_app/reports/'
     | '/_app/returns/'
     | '/_app/transfers/'
     | '/_app/bills/$id/edit'
@@ -533,6 +569,13 @@ declare module '@tanstack/react-router' {
       path: '/no-access'
       fullPath: '/no-access'
       preLoaderRoute: typeof AppNoAccessRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/notifications': {
+      id: '/_app/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
       parentRoute: typeof AppRoute
     }
     '/_public/forgot-password': {
@@ -659,6 +702,20 @@ declare module '@tanstack/react-router' {
       path: '/purchases/new'
       fullPath: '/purchases/new'
       preLoaderRoute: typeof AppPurchasesNewRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/reports/': {
+      id: '/_app/reports/'
+      path: '/reports'
+      fullPath: '/reports/'
+      preLoaderRoute: typeof AppReportsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/reports/$key': {
+      id: '/_app/reports/$key'
+      path: '/reports/$key'
+      fullPath: '/reports/$key'
+      preLoaderRoute: typeof AppReportsKeyRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/returns/': {
@@ -792,6 +849,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppNoAccessRoute: typeof AppNoAccessRoute
+  AppNotificationsRoute: typeof AppNotificationsRoute
   AppIndexRoute: typeof AppIndexRoute
   AppAdjustmentsNewRoute: typeof AppAdjustmentsNewRoute
   AppBillsNewRoute: typeof AppBillsNewRoute
@@ -802,6 +860,7 @@ interface AppRouteChildren {
   AppPaymentsIdRoute: typeof AppPaymentsIdRoute
   AppPaymentsNewRoute: typeof AppPaymentsNewRoute
   AppPurchasesNewRoute: typeof AppPurchasesNewRoute
+  AppReportsKeyRoute: typeof AppReportsKeyRoute
   AppReturnsIdRoute: typeof AppReturnsIdRoute
   AppReturnsNewRoute: typeof AppReturnsNewRoute
   AppStockCountsNewRoute: typeof AppStockCountsNewRoute
@@ -813,6 +872,7 @@ interface AppRouteChildren {
   AppPartiesIndexRoute: typeof AppPartiesIndexRoute
   AppPaymentsIndexRoute: typeof AppPaymentsIndexRoute
   AppPurchasesIndexRoute: typeof AppPurchasesIndexRoute
+  AppReportsIndexRoute: typeof AppReportsIndexRoute
   AppReturnsIndexRoute: typeof AppReturnsIndexRoute
   AppTransfersIndexRoute: typeof AppTransfersIndexRoute
   AppBillsIdEditRoute: typeof AppBillsIdEditRoute
@@ -830,6 +890,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppNoAccessRoute: AppNoAccessRoute,
+  AppNotificationsRoute: AppNotificationsRoute,
   AppIndexRoute: AppIndexRoute,
   AppAdjustmentsNewRoute: AppAdjustmentsNewRoute,
   AppBillsNewRoute: AppBillsNewRoute,
@@ -840,6 +901,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppPaymentsIdRoute: AppPaymentsIdRoute,
   AppPaymentsNewRoute: AppPaymentsNewRoute,
   AppPurchasesNewRoute: AppPurchasesNewRoute,
+  AppReportsKeyRoute: AppReportsKeyRoute,
   AppReturnsIdRoute: AppReturnsIdRoute,
   AppReturnsNewRoute: AppReturnsNewRoute,
   AppStockCountsNewRoute: AppStockCountsNewRoute,
@@ -851,6 +913,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppPartiesIndexRoute: AppPartiesIndexRoute,
   AppPaymentsIndexRoute: AppPaymentsIndexRoute,
   AppPurchasesIndexRoute: AppPurchasesIndexRoute,
+  AppReportsIndexRoute: AppReportsIndexRoute,
   AppReturnsIndexRoute: AppReturnsIndexRoute,
   AppTransfersIndexRoute: AppTransfersIndexRoute,
   AppBillsIdEditRoute: AppBillsIdEditRoute,

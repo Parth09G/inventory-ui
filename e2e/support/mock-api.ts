@@ -130,6 +130,26 @@ export class MockApi {
       .on('get', '/lookups/states', data.states)
       .on('get', '/notifications', { data: [], meta: { page: 1, page_size: 50, total: 0 } })
       .on('get', '/search', { items: [], parties: [], bills: [] })
+      .on('get', '/dashboard/summary', data.dashboard.summary)
+      .on('get', '/dashboard/pending', data.dashboard.pending)
+      .on('get', '/dashboard/sales-trend', data.dashboard.trend)
+      .on(
+        'get',
+        '/dashboard/low-stock',
+        data.items.filter((i) => i.stock_status !== 'ok'),
+      )
+      .on('get', '/dashboard/top-items', [
+        { item_id: 41, name: 'JSW 12 mm', qty_sold: '3800.000', unit: 'kg', sales: '260300.00' },
+      ])
+      .on('get', '/dashboard/categories', [
+        {
+          category_id: 2,
+          name: 'Steel',
+          sales: '260300.00',
+          profit: '28400.00',
+          stock_value: '101250.00',
+        },
+      ])
   }
 
   async install() {

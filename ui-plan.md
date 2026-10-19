@@ -75,22 +75,22 @@ Browser
 | `text-xl`     | 20/28 weight 600 (page titles; 18 on phone) |
 | `text-figure` | 24/32 weight 600, tabular (grand totals)    |
 
-| Colour token                                      | Light                                       | Use                                                                     |
-| ------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------- |
-| `--paper`                                         | #F7F7F4                                     | App background                                                          |
-| `--surface`                                       | #FFFFFF                                     | Tables, forms                                                           |
-| `--surface-sunken`                                | #EFEFEA                                     | Table header, read-only fields                                          |
-| `--ink`                                           | #1C1F23                                     | Text, primary button                                                    |
-| `--ink-muted`                                     | #5B6169                                     | Secondary text                                                          |
-| `--ink-faint`                                     | #8A9098                                     | Placeholders, disabled                                                  |
-| `--rule`                                          | #DEDDD6                                     | Hairlines, borders                                                      |
-| `--rule-strong`                                   | #C4C3BB                                     | Input borders, focus base                                               |
-| `--steel`                                         | #2F5D8A                                     | Focus ring, links, selection                                            |
-| `--steel-tint`                                    | #2F5D8A at 10%                              | Selected row                                                            |
-| `--cash`                                          | #1C1F23                                     | Cash bill band                                                          |
-| `--account`                                       | #0F6E6E                                     | Account bill band                                                       |
-| `--success` / `--warning` / `--danger` / `--info` | #2E7D4F / #B26B00 / #B42318 / #2F5D8A       | Status (each with a `-tint` at 10%)                                     |
-| `--chart-1…5`                                     | #2F5D8A, #0F6E6E, #B26B00, #6B5B95, #5B6169 | Charts (checked with the dataviz validator when the dashboard is built) |
+| Colour token                                      | Light                                 | Use                                                             |
+| ------------------------------------------------- | ------------------------------------- | --------------------------------------------------------------- |
+| `--paper`                                         | #F7F7F4                               | App background                                                  |
+| `--surface`                                       | #FFFFFF                               | Tables, forms                                                   |
+| `--surface-sunken`                                | #EFEFEA                               | Table header, read-only fields                                  |
+| `--ink`                                           | #1C1F23                               | Text, primary button                                            |
+| `--ink-muted`                                     | #5B6169                               | Secondary text                                                  |
+| `--ink-faint`                                     | #8A9098                               | Placeholders, disabled                                          |
+| `--rule`                                          | #DEDDD6                               | Hairlines, borders                                              |
+| `--rule-strong`                                   | #C4C3BB                               | Input borders, focus base                                       |
+| `--steel`                                         | #2F5D8A                               | Focus ring, links, selection                                    |
+| `--steel-tint`                                    | #2F5D8A at 10%                        | Selected row                                                    |
+| `--cash`                                          | #1C1F23                               | Cash bill band                                                  |
+| `--account`                                       | #0F6E6E                               | Account bill band                                               |
+| `--success` / `--warning` / `--danger` / `--info` | #2E7D4F / #B26B00 / #B42318 / #2F5D8A | Status (each with a `-tint` at 10%)                             |
+| `--chart-1`                                       | #2563A8                               | Chart series (validated; one series per chart on the dashboard) |
 
 - **Spacing:** 4 px scale. **Radius:** `--radius-sm` 4 px (controls), `--radius-md` 6 px (popovers, dialogs). **Shadow:** a single `--shadow-pop`, used only on floating layers.
 - **Sizes:** control height 32 px desktop and 44 px on phones (`(pointer: coarse)` or width < 640). Table rows 32 px, or 40 px in comfortable mode.

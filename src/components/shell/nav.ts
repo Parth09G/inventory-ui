@@ -1,6 +1,7 @@
 import type { LinkProps } from '@tanstack/react-router'
 import {
   ArrowLeftRight,
+  BarChart3,
   Boxes,
   FolderTree,
   IndianRupee,
@@ -48,4 +49,8 @@ export const NAV: NavGroup[] = [
     ],
   },
   { label: 'Parties', items: [{ to: '/parties', label: 'Parties', icon: Users }] },
+  {
+    label: 'Reports',
+    items: [{ to: '/reports', label: 'Reports', icon: BarChart3, perm: 'reports.view' }],
+  },
 ]

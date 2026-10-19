@@ -1,7 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { PageHeader } from '@/components/shared/PageHeader'
+import { z } from 'zod'
+import { DashboardPage } from '@/features/dashboard/DashboardPage'
 
-// The dashboard is built in T6.1.
 export const Route = createFileRoute('/_app/')({
-  component: () => <PageHeader title="Dashboard" />,
+  validateSearch: z.object({
+    period: z.enum(['today', 'month', 'fy']).optional().catch(undefined),
+  }),
+  component: DashboardPage,
 })

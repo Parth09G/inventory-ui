@@ -50,9 +50,9 @@ Playwright specs run against a mocked API (`e2e/support/`), with fixtures typed 
 
 ## M6 Dashboard, notifications, reports
 
-- [ ] T6.1 Dashboard (#4)
-- [ ] T6.2 Notifications (#5)
-- [ ] T6.3 Report catalogue (#36) and viewer (#37)
+- [x] T6.1 Dashboard (#4)
+- [x] T6.2 Notifications (#5)
+- [x] T6.3 Report catalogue (#36) and viewer (#37)
 
 ## M7 Admin
 

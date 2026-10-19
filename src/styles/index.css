@@ -42,11 +42,10 @@
   --color-danger-tint: rgb(180 35 24 / 0.1);
   --color-info: #2f5d8a;
   --color-info-tint: rgb(47 93 138 / 0.1);
-  --color-chart-1: #2f5d8a;
-  --color-chart-2: #0f6e6e;
-  --color-chart-3: #b26b00;
-  --color-chart-4: #6b5b95;
-  --color-chart-5: #5b6169;
+  /* Chart series. Validated with the dataviz palette script (lightness, chroma, contrast
+     vs surface). Add a slot only after validating the whole set; status colours are
+     never series colours. */
+  --color-chart-1: #2563a8;
 
   /* shadcn/ui semantic names mapped onto our tokens (D-13). */
   --color-background: #ffffff;

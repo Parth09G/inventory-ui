@@ -292,3 +292,52 @@ export const settings: S['Settings'] = {
   default_charge_gst: '18',
   einvoice_enabled: true,
 }
+
+export const dashboard = {
+  summary: {
+    period: { from: '2026-10-01', to: '2026-10-19' },
+    stock: {
+      items: 3,
+      value: '116650.00',
+      low_count: 1,
+      out_count: 1,
+      by_location: [
+        { location_id: 1, name: 'Shop', value: '7500.00' },
+        { location_id: 2, name: 'Godown 1', value: '109150.00' },
+        { location_id: 3, name: 'Godown 2', value: '0.00' },
+      ],
+    },
+    sales: {
+      today: '8083.00',
+      period: '412650.00',
+      fy: '3842100.00',
+      cash_bills: '298400.00',
+      account_bills: '114250.00',
+      bill_count: 37,
+    },
+    gross_profit: '45210.00',
+    gross_margin_pct: '12.40',
+    receivables: '238450.00',
+    payables: '140500.00',
+    cheques_pending: '20000.00',
+    collections_by_mode: [
+      { mode: 'cash', amount: '152300.00' },
+      { mode: 'upi', amount: '98450.00' },
+      { mode: 'cheque', amount: '20000.00' },
+    ],
+  } satisfies S['DashboardSummary'],
+  pending: {
+    einvoice_failed: 1,
+    einvoice_pending: 0,
+    returns_pending: 2,
+    blocked_bills_today: 0,
+    tally_unexported: 0,
+    cheques_due: 1,
+  } satisfies S['PendingWork'],
+  trend: Array.from({ length: 19 }, (_, i) => ({
+    bucket: `2026-10-${String(i + 1).padStart(2, '0')}`,
+    sales: String(12000 + ((i * 7919) % 31000)) + '.00',
+    profit: String(1500 + ((i * 3571) % 4200)) + '.00',
+    bills: 1 + (i % 4),
+  })) satisfies S['TrendPoint'][],
+}
